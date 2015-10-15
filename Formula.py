@@ -6,6 +6,7 @@ Description:    This module contains the formulas for calculating the
                 other physical influences like drag.
 """
 
+G = 6.67408e-10
 
 def thrust(m_dt, v_p, a_e, p_p, p_amb):
     """
@@ -32,5 +33,22 @@ def drag(density, v_r, a_r, c_d):
     :param c_d: Drag coefficient of the rocket (Double)
     :return: Drag experienced by the rocket (Double)
     """
-    dragnow = 1.0/2.0 * density * v_r**2 * a_r * c_d
+    dragnow = 1.0 / 2.0 * density * v_r**2 * a_r * c_d
     return dragnow
+
+
+def gravity(m_p, m_r, distance):
+    """
+    Calculates the gravitational force between the planet and the rocket,
+    raises an exception if distance is zero or force is negative
+    :param m_p: Mass of the planet (Double)
+    :param m_r: Mass of the rocket (Double)
+    :param distance: Distance between the center of mass of the rocket
+            and the planet (non-zero Double)
+    :return: gravitational fore (positive Double)
+    """
+    global G
+    gravitynow = G * (m_p * m_r) / distance**2
+    if gravitynow < 0:
+        raise ValueError("No negative gravity possible!")
+    return gravitynow
