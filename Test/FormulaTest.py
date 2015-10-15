@@ -40,13 +40,15 @@ class DragTest(unittest.TestCase):
 class GravityTest(unittest.TestCase):
 
     def test_GravityZero(self):
-        self.assertRaises(ZeroDivisionError, Formula.gravity(0.0, 0.0, 0.0), "[!] Zero devision test failed!")
+        with self.assertRaises(ZeroDivisionError):
+            Formula.gravity(0.0, 0.0, 0.0)
 
     def test_GravityPositve(self):
-        self.assertTrue(Formula.gravity(10.0, 12.0, 15.0) == 5.339264e-10, "[!] Positive test failed!")
+        self.assertTrue(Formula.gravity(10.0, 12.0, 15.0) == 3.559509333333333e-10, "[!] Positive test failed!")
 
     def test_GravityNegative(self):
-        self.assertRaises(ValueError, Formula.gravity(-10.0, 12.0, 15.0), "[!] Negative test failed!")
+        with self.assertRaises(ValueError):
+            Formula.gravity(-10.0, 12.0, 15.0)
 
     def test_GravityFalseNoneZero(self):
         self.assertFalse(Formula.gravity(10.0, 12.0, 15.0) == 10, "[!] False none-zero test failed!")
