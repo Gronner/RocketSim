@@ -16,8 +16,8 @@ class ThrustTest(unittest.TestCase):
     def test_ThrustNegative(self):
         self.assertTrue(Formula.thrust(-10.0, 12.0, -15.0, 10.0, 3.0) == -225.0, "[!] Negative test failed")
 
-    def test_ThrustFalseNoneZero(self):
-        self.assertFalse(Formula.thrust(10.0, 12.0, 15.0, 10.0, 3.0) == 10.0, "[!] False none-zero test failed")
+    def test_ThrustFalseNonZero(self):
+        self.assertFalse(Formula.thrust(10.0, 12.0, 15.0, 10.0, 3.0) == 10.0, "[!] False non-zero test failed")
 
 
 class DragTest(unittest.TestCase):
@@ -34,8 +34,8 @@ class DragTest(unittest.TestCase):
     def test_DragNegativeSquare(self):
         self.assertTrue(Formula.drag(10.0, -12.0, 15.0, 10.0) == 108000.0, "[!] Negative square test failed!")
 
-    def test_DragFalseNoneZero(self):
-        self.assertFalse(Formula.drag(10.0, 12.0, 15.0, 10.0) == 15, "[!] False none-zero test failed!")
+    def test_DragFalseNonZero(self):
+        self.assertFalse(Formula.drag(10.0, 12.0, 15.0, 10.0) == 15, "[!] False non-zero test failed!")
 
 class GravityTest(unittest.TestCase):
 
@@ -50,8 +50,25 @@ class GravityTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             Formula.gravity(-10.0, 12.0, 15.0)
 
-    def test_GravityFalseNoneZero(self):
-        self.assertFalse(Formula.gravity(10.0, 12.0, 15.0) == 10, "[!] False none-zero test failed!")
+    def test_GravityFalseNonZero(self):
+        self.assertFalse(Formula.gravity(10.0, 12.0, 15.0) == 10, "[!] False non-zero test failed!")
+
+class PressureTest(unittest.TestCase):
+
+    def test_PressureZero(self):
+        with self.assertRaises(ZeroDivisionError):
+            Formula.pressure(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+
+    def testPressurePositive(self):
+        self.assertTrue(Formula.pressure(1013.25, 0.0065, 100.0, 0.0, 24.0) == 877.098852, "[!] Positive test failed!")
+
+    def testPressureNegative(self):
+        self.assertTrue(Formula.pressure(-1013.25, 0.0065, 100.0, 0.0, 24.0) == -877.098852, "\
+        [!] Negative test failed!")
+
+    def testPressureFalseNonZero(self):
+        self.assertFalse(Formula.pressure(-1013.25, 0.0065, 100.0, 0.0, 24.0) == -87.098852, "\
+        [!] False non-zero test failed!")
 
 def main():
     unittest.main()
