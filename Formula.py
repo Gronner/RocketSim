@@ -19,7 +19,7 @@ def thrust(m_dt, v_p, a_e, p_p, p_amb):
     :param a_e: Surface area of the exit nozzle (Double)
     :param p_p: Pressure in the area of the nozzle (Double)
     :param p_amb: Pressure of the ambient (Double)
-    :return: Thrust produced by the engine (Double)
+    :return: Thrust produced by the engine (Double) [N]
     """
     thrustnow = m_dt * v_p + a_e * (p_p - p_amb)
     return thrustnow
@@ -32,7 +32,7 @@ def drag(density, v_r, a_r, c_d):
     :param v_r: Velocity of the rocket in travelling direction (Double)
     :param a_r: Surface area of the rocket that is exposed to drag (Double)
     :param c_d: Drag coefficient of the rocket (Double)
-    :return: Drag experienced by the rocket (Double)
+    :return: Drag experienced by the rocket (Double) [N]
     """
     dragnow = 1.0 / 2.0 * density * v_r**2 * a_r * c_d
     return dragnow
@@ -45,7 +45,7 @@ def gravity(m_p, m_r, distance):
     :param m_p: Mass of the planet (Double)
     :param m_r: Mass of the rocket (Double)
     :param distance: Distance between the center of mass of the rocket and the planet (non-zero Double)
-    :return: gravitational fore (positive Double)
+    :return: gravitational fore (positive Double) [N]
     """
     global G
     gravitynow = G * (m_p * m_r) / distance**2
@@ -62,7 +62,7 @@ def pressure(p_h0, a, h1, h0, t_ho):
     :param h1: Height of the rocket (Double)
     :param h0: Height of the lower end of the atmosphere layer (Double)
     :param t_ho: Temperature at the lower end of the atmosphere layer (Double)
-    :return:
+    :return: Pressure at the height of the rocket [Pa]
     """
     global g
     global M
@@ -72,3 +72,17 @@ def pressure(p_h0, a, h1, h0, t_ho):
     quot = (a * heightdiff) / t_ho
     pressurenow = p_h0 * (1 - quot)**expo
     return pressurenow
+
+
+def temperature(T_h0, a, h0, h1):
+    """
+    Calculates the temperature at a certain height
+    :param T_h0: Temperature at the lowest point of the atmosphere layer (Double)
+    :param a: Temperature gradient for the atmosphere layer (Double)
+    :param h0: Height of the lower end of the atmosphere layer (Double)
+    :param h1: Height of the rocket (Double)
+    :return: Temperature at the height of the rocket (Double) [K]
+    """
+    heightdiff = h1 - h0
+    temperaturenow = T_h0 * (1 - a*heightdiff)
+    return temperaturenow
