@@ -76,10 +76,10 @@ class TemperatureTest(unittest.TestCase):
         self.assertTrue(Formula.temperature(0.0, 0.0, 0.0, 0.0) == 0.0, "[!] Zero test failed!")
 
     def test_TemperaturePositive(self):
-        self.assertTrue(Formula.temperature(12.0, 3.0, 0.0, 100.0) == 300.0, "[!] Positive Test failed!")
+        self.assertTrue(Formula.temperature(12.0, 3.0, 0.0, 100.0) == -3588, "[!] Positive Test failed!")
 
     def test_TemperatureNegative(self):
-        self.assertTrue(Formula.temperature(12.0, -3.0, 0.0, 100.0) == -288.0, "[!] Negative Test failed!")
+        self.assertTrue(Formula.temperature(12.0, -3.0, 0.0, 100.0) == 3612.0, "[!] Negative Test failed!")
 
     def testTemperatureFalseNonZero(self):
         self.assertFalse(Formula.temperature(12.0, 3.0, 0.0, -100) == 300.0, "[!] False non-zero Test failed!")
