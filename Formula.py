@@ -100,3 +100,14 @@ def density(p_h, t_h):
     densitynow = (p_h * M) / (R * t_h)
     return densitynow
 
+
+def resultingforce(f_t, f_d, f_g):
+    """
+    Calculates the resulting force from the three main forces
+    :param F_T: Force produced by thrust (Double)
+    :param F_D: Force produced by drag (Double)
+    :param F_G: Force applied by gravity (Double)
+    :return: Sum of the three forces (Double) [N]
+    """
+    resultingforcenow = f_t + f_d + f_g
+    return resultingforcenow
