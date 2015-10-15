@@ -57,13 +57,13 @@ class PressureTest(unittest.TestCase):
 
     def test_PressureZero(self):
         with self.assertRaises(ZeroDivisionError):
-            Formula.pressure(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            Formula.pressure(0.0, 0.0, 0.0, 0.0, 0.0)
 
     def testPressurePositive(self):
-        self.assertTrue(Formula.pressure(1013.25, 0.0065, 100.0, 0.0, 24.0) == 877.098852, "[!] Positive test failed!")
+        self.assertTrue(Formula.pressure(1013.25, 0.0065, 100.0, 0.0, 24.0) == 877.0988519626972, "[!] Positive test failed!")
 
     def testPressureNegative(self):
-        self.assertTrue(Formula.pressure(-1013.25, 0.0065, 100.0, 0.0, 24.0) == -877.098852, "\
+        self.assertTrue(Formula.pressure(-1013.25, 0.0065, 100.0, 0.0, 24.0) == -877.0988519626972, "\
         [!] Negative test failed!")
 
     def testPressureFalseNonZero(self):
