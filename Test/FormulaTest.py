@@ -81,9 +81,23 @@ class TemperatureTest(unittest.TestCase):
     def test_TemperatureNegative(self):
         self.assertTrue(Formula.temperature(12.0, -3.0, 0.0, 100.0) == 3612.0, "[!] Negative Test failed!")
 
-    def testTemperatureFalseNonZero(self):
+    def test_TemperatureFalseNonZero(self):
         self.assertFalse(Formula.temperature(12.0, 3.0, 0.0, -100) == 300.0, "[!] False non-zero Test failed!")
 
+class DensityTest(unittest.TestCase):
+
+    def test_DensityZero(self):
+        with self.assertRaises(ZeroDivisionError):
+            Formula.density(0.0, 0.0)
+
+    def test_DensityPositive(self):
+        self.assertTrue(Formula.density(10.0, 10.0) == 0.0034832812124127974, "[!] Positive test failed!")
+
+    def test_DensityNegative(self):
+        self.assertTrue(Formula.density(10.0, -10.0) == -0.0034832812124127974, "[!] Negative test failed!")
+
+    def test_DensityFalseNonZero(self):
+        self.assertFalse(Formula.density(10.0, 10.0) == 33.0, "[!] False non-zero test failed")
 
 def main():
     unittest.main()
