@@ -14,7 +14,7 @@ class ThrustTest(unittest.TestCase):
         self.assertTrue(Formula.thrust(10.0, 12.0, 15.0, 10.0, 3.0) == 225.0, "[!] Positive test failed")
 
     def test_ThrustNegative(self):
-        self.assertTrue(Formula.thrust(-10.0, 12.0, -15.0, 10.0, 3.0) == -225.0, "[!] Positive test failed")
+        self.assertTrue(Formula.thrust(-10.0, 12.0, -15.0, 10.0, 3.0) == -225.0, "[!] Negative test failed")
 
     def test_ThrustFalseNoneZero(self):
         self.assertFalse(Formula.thrust(10.0, 12.0, 15.0, 10.0, 3.0) == 10.0, "[!] False None-zero test failed")
