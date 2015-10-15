@@ -20,6 +20,20 @@ class ThrustTest(unittest.TestCase):
         self.assertFalse(Formula.thrust(10.0, 12.0, 15.0, 10.0, 3.0) == 10.0, "[!] False None-zero test failed")
 
 
+class DragTest(unittest.TestCase):
+
+    def test_DragZero(self):
+        self.assertTrue(Formula.drag(0.0, 0.0, 0.0, 0.0) == 0, "[!] Zero test failed!")
+
+    def test_DragPositive(self):
+        self.assertTrue(Formula.drag(10.0, 12.0, 15.0, 10.0) == 10800.0, "[!] Positive test failed!")
+
+    def test_DragNegative(self):
+        self.assertTrue(Formula.drag(-10.0, 12.0, 15.0, 10.0) == -10800.0, "[!] Negative test failed!")
+
+    def test_DragNegativeSquare(self):
+        self.assertTrue(Formula.drag(10.0, -12.0, 15.0, 10.0) == 10800.0, "[!] Negative square test failed!")
+
 def main():
     unittest.main()
 
