@@ -74,7 +74,7 @@ def pressure(p_h0, a, h1, h0, t_ho):
     return pressurenow
 
 
-def temperature(T_h0, a, h0, h1):
+def temperature(t_h0, a, h0, h1):
     """
     Calculates the temperature at a certain height
     :param T_h0: Temperature at the lowest point of the atmosphere layer (Double)
@@ -84,5 +84,18 @@ def temperature(T_h0, a, h0, h1):
     :return: Temperature at the height of the rocket (Double) [K]
     """
     heightdiff = h1 - h0
-    temperaturenow = T_h0 * (1 - a*heightdiff)
+    temperaturenow = t_h0 * (1 - a*heightdiff)
     return temperaturenow
+
+
+def density(p_h, t_h):
+    """
+    Calculates the atmospheres density at a certain height
+    :param p_h: The pressure of the medium depending on the height (Double)
+    :param t_h: The Temperature of the medium depending on the height (Double)
+    :return: Density of the medium depending on the height of the rocket (Double) [kg/m^3]
+    """
+    global R
+    global M
+    densitynow = (p_h * M) / (R * t_h)
+    return densitynow
