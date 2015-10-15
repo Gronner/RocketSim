@@ -37,6 +37,7 @@ class DragTest(unittest.TestCase):
     def test_DragFalseNonZero(self):
         self.assertFalse(Formula.drag(10.0, 12.0, 15.0, 10.0) == 15, "[!] False non-zero test failed!")
 
+
 class GravityTest(unittest.TestCase):
 
     def test_GravityZero(self):
@@ -52,6 +53,7 @@ class GravityTest(unittest.TestCase):
 
     def test_GravityFalseNonZero(self):
         self.assertFalse(Formula.gravity(10.0, 12.0, 15.0) == 10, "[!] False non-zero test failed!")
+
 
 class PressureTest(unittest.TestCase):
 
@@ -70,6 +72,7 @@ class PressureTest(unittest.TestCase):
         self.assertFalse(Formula.pressure(-1013.25, 0.0065, 100.0, 0.0, 24.0) == -87.098852, "\
         [!] False non-zero test failed!")
 
+
 class TemperatureTest(unittest.TestCase):
 
     def test_TemperatureZero(self):
@@ -83,6 +86,7 @@ class TemperatureTest(unittest.TestCase):
 
     def test_TemperatureFalseNonZero(self):
         self.assertFalse(Formula.temperature(12.0, 3.0, 0.0, -100) == 300.0, "[!] False non-zero Test failed!")
+
 
 class DensityTest(unittest.TestCase):
 
@@ -98,6 +102,22 @@ class DensityTest(unittest.TestCase):
 
     def test_DensityFalseNonZero(self):
         self.assertFalse(Formula.density(10.0, 10.0) == 33.0, "[!] False non-zero test failed")
+
+
+class ResultingForceTest(unittest.TestCase):
+
+    def test_ResultingForceZero(self):
+        self.assertTrue(Formula.resultingforce(0.0, 0.0, 0.0) == 0.0, "[!] Zero test failed")
+
+    def test_ResultingForcePositive(self):
+        self.assertTrue(Formula.resultingforce(100.0, 10.0, 1000.0) == 1110.0, "[!] Positive test failed!")
+
+    def test_ResultingForceNegative(self):
+        self.assertTrue(Formula.resultingforce(-100.0, -10.0, -1000.0) == -1110.0, "[!] Negative test failed")
+
+    def test_ResultingForceFalseNonZero(self):
+        self.assertFalse(Formula.resultingforce(-100.0, 10.0, -1000.0) == -1110.0, "[!] False non-zero test failed")
+
 
 def main():
     unittest.main()
