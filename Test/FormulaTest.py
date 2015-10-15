@@ -26,13 +26,16 @@ class DragTest(unittest.TestCase):
         self.assertTrue(Formula.drag(0.0, 0.0, 0.0, 0.0) == 0, "[!] Zero test failed!")
 
     def test_DragPositive(self):
-        self.assertTrue(Formula.drag(10.0, 12.0, 15.0, 10.0) == 10800.0, "[!] Positive test failed!")
+        self.assertTrue(Formula.drag(10.0, 12.0, 15.0, 10.0) == 108000.0, "[!] Positive test failed!")
 
     def test_DragNegative(self):
-        self.assertTrue(Formula.drag(-10.0, 12.0, 15.0, 10.0) == -10800.0, "[!] Negative test failed!")
+        self.assertTrue(Formula.drag(-10.0, 12.0, 15.0, 10.0) == -108000.0, "[!] Negative test failed!")
 
     def test_DragNegativeSquare(self):
-        self.assertTrue(Formula.drag(10.0, -12.0, 15.0, 10.0) == 10800.0, "[!] Negative square test failed!")
+        self.assertTrue(Formula.drag(10.0, -12.0, 15.0, 10.0) == 108000.0, "[!] Negative square test failed!")
+
+    def test_DragFalseNoneZero(self):
+        self.assertFalse(Formula.drag(10.0, 12.0, 15.0, 10.0) == 15, "[!] Negative square test failed!")
 
 def main():
     unittest.main()
