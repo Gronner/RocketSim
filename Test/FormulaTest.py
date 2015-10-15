@@ -70,6 +70,21 @@ class PressureTest(unittest.TestCase):
         self.assertFalse(Formula.pressure(-1013.25, 0.0065, 100.0, 0.0, 24.0) == -87.098852, "\
         [!] False non-zero test failed!")
 
+class TemperatureTest(unittest.TestCase):
+
+    def test_TemperatureZero(self):
+        self.assertTrue(Formula.temperature(0.0, 0.0, 0.0, 0.0) == 0.0, "[!] Zero test failed!")
+
+    def test_TemperaturePositive(self):
+        self.assertTrue(Formula.temperature(12.0, 3.0, 0.0, 100.0) == 300.0, "[!] Positive Test failed!")
+
+    def test_TemperatureNegative(self):
+        self.assertTrue(Formula.temperature(12.0, -3.0, 0.0, 100.0) == -288.0, "[!] Negative Test failed!")
+
+    def testTemperatureFalseNonZero(self):
+        self.assertFalse(Formula.temperature(12.0, 3.0, 0.0, -100) == 300.0, "[!] False non-zero Test failed!")
+
+
 def main():
     unittest.main()
 
