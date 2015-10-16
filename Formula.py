@@ -13,30 +13,30 @@ M = 0.02896         # Molar mass of atmosphere gasses       [kg/mol]
 R = 8.314           # universal gas constant                [J/(K*mol)]
 g = 9.807           # Earths gravitational acceleration     [m/s^2]
 
-def thrust(m_dt, v_p, a_e, p_p, p_amb):
+def thrust(m_dt, v_p, s_e, p_p, p_amb):
     """
     Calculates the thrust the engine is producing based on the following inputs
     :param m_dt: Change of mass of propellant (Double)
     :param v_p: Velocity of propellant (Double)
-    :param a_e: Surface area of the exit nozzle (Double)
+    :param s_e: Surface area of the exit nozzle (Double)
     :param p_p: Pressure in the area of the nozzle (Double)
     :param p_amb: Pressure of the ambient (Double)
     :return: Thrust produced by the engine (Double) [N]
     """
-    thrustnow = m_dt * v_p + a_e * (p_p - p_amb)
+    thrustnow = m_dt * v_p + s_e * (p_p - p_amb)
     return thrustnow
 
 
-def drag(density, v_r, a_r, c_d):
+def drag(density, v_r, s_r, c_d):
     """
     Calculates the drag the rocket experiences based on the following inputs
     :param density: Density of the medium the rocket is travelling in (Double)
     :param v_r: Velocity of the rocket in travelling direction (Double)
-    :param a_r: Surface area of the rocket that is exposed to drag (Double)
+    :param s_r: Surface area of the rocket that is exposed to drag (Double)
     :param c_d: Drag coefficient of the rocket (Double)
     :return: Drag experienced by the rocket (Double) [N]
     """
-    dragnow = 1.0 / 2.0 * density * v_r**2 * a_r * c_d
+    dragnow = 1.0 / 2.0 * density * v_r**2 * s_r * c_d
     return dragnow
 
 
@@ -127,6 +127,7 @@ def angle(v_r, dx_dt, r_e, h_r):
     anglenow = math.acos(1 / v_r * dx_dt * (r_e + h_r) / r_e)
     return math.degrees(anglenow)
 
+
 def acceleration(f_r, m_r):
     """
     Calculates the acceleration of the rocket based on its mass and the force it's experiencing
@@ -136,3 +137,15 @@ def acceleration(f_r, m_r):
     """
     accelerationnow = f_r / m_r
     return accelerationnow
+
+
+def velocity(v_0, d_t, a_r):
+    """
+    Calculates the velocity of the rocket at a certain time interval
+    :param v_0: Velocity at the beginning of the time interval (Double)
+    :param d_t: Duration of the interval (Double)
+    :param a_r: Acceleration of the rocket during the interval (Double)
+    :return: Velocity of the rocket at the end of the interval (Double) [m/s]
+    """
+    velocitynow = v_0 + d_t * a_r
+    return velocitynow
