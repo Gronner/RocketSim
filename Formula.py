@@ -124,6 +124,15 @@ def angle(v_r, dx_dt, r_e, h_r):
     :param h_r: Height of the rocket above the planet (Double)
     :return: Returns the new angle of the rocket to the horizon (Double) [grad]
     """
-
     anglenow = math.acos(1 / v_r * dx_dt * (r_e + h_r) / r_e)
     return math.degrees(anglenow)
+
+def acceleration(f_r, m_r):
+    """
+    Calculates the acceleration of the rocket based on its mass and the force it's experiencing
+    :param f_r: Resulting force of drag, thrust and gravity (Double)
+    :param m_r: Mass of the rocket depending on parts and carried fuel (Double)
+    :return: Acceleration of the rocket (Double) [m/s^2]
+    """
+    accelerationnow = f_r / m_r
+    return accelerationnow
