@@ -135,6 +135,20 @@ class AngleTest(unittest.TestCase):
         self.assertFalse(Formula.angle(10.0, 3.0, 1000.0, 400.0) == 14.0, "[!] False non-zero failed!")
 
 
+class AccelerationTest(unittest.TestCase):
+
+    def test_AccelerationZero(self):
+        self.assertTrue(Formula.acceleration(0.0, 0.0) == 0.0, "[!] Zero test failed")
+
+    def test_AccelerationPositive(self):
+        self.assertTrue(Formula.acceleration(100.0, 10.0) == 10.0, "[!] Positive test failed!")
+
+    def test_AccelerationNegative(self):
+        self.assertTrue(Formula.acceleration(100.0, -10.0) == -10.0, "[!] Negative test failed!")
+
+    def test_AccelerationFalseNonZero(self):
+        self.assertFalse(Formula.acceleration(100.0, 10.0) == 23.0, "[!] False non-zero test failed!")
+
 def main():
     unittest.main()
 
