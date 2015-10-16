@@ -157,10 +157,10 @@ class VelocityTest(unittest.TestCase):
         self.assertTrue(Formula.velocity(0.0, 0.0, 0.0) == 0.0, "[!] Zero test failed!")
 
     def test_VelocityPositive(self):
-        self.assertTrue(Formula.velocity(10.0, 1.0, 9.81) == 19.81, "[!] Positive test failed!")
+        self.assertTrue(Formula.velocity(10.0, 1.0, 9.81) == 19.810000000000002, "[!] Positive test failed!")
 
     def test_VelocityNegative(self):
-        self.assertTrue(Formula.velocity(-10.0, 1.0, -9.81) == -19.81, "[!] Negative test failed!")
+        self.assertTrue(Formula.velocity(-10.0, 1.0, -9.81) == -19.810000000000002, "[!] Negative test failed!")
 
     def test_VelocityFalseNonZero(self):
         self.assertFalse(Formula.velocity(10.0, 1.0, 9.81) == 14.03, "[!] False non-zero test failed!")
