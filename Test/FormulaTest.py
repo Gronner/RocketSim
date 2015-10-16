@@ -139,7 +139,7 @@ class AccelerationTest(unittest.TestCase):
 
     def test_AccelerationZero(self):
         with self.assertRaises(ZeroDivisionError):
-        Formula.acceleration(0.0, 0.0)
+            Formula.acceleration(0.0, 0.0)
 
     def test_AccelerationPositive(self):
         self.assertTrue(Formula.acceleration(100.0, 10.0) == 10.0, "[!] Positive test failed!")
