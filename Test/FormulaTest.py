@@ -119,6 +119,22 @@ class ResultingForceTest(unittest.TestCase):
         self.assertFalse(Formula.resultingforce(-100.0, 10.0, -1000.0) == -1110.0, "[!] False non-zero test failed")
 
 
+class AngleTest(unittest.TestCase):
+
+    def test_AngleZero(self):
+        with self.assertRaises(ZeroDivisionError):
+            Formula.angle(0.0, 0.0, 0.0, 0.0)
+
+    def test_AnglePositive(self):
+        self.assertTrue(Formula.angle(10.0, 3.0, 1000.0, 400.0) == 0.42, "[!] Positive test failed!")
+
+    def test_AngleNegative(self):
+        self.assertTrue(Formula.angle(-10.0, 3.0, 1000.0, 400.0) == -0.42, "[!] Negative test failed!")
+
+    def testAngleFalseNonZero(self):
+        self.assertFalse(Formula.angle(10.0, 3.0, 1000.0, 400.0) == 14.0, "[!] False non-zero failed!")
+
+
 def main():
     unittest.main()
 
