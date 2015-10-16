@@ -6,6 +6,8 @@ Description:    This module contains the formulas for calculating the
                 other physical influences like drag.
 """
 
+import math
+
 G = 6.67408e-10     # Newton's gravity constant             [m^3/(kg*s^2)]
 M = 0.02896         # Molar mass of atmosphere gasses       [kg/mol]
 R = 8.314           # universal gas constant                [J/(K*mol)]
@@ -111,3 +113,17 @@ def resultingforce(f_t, f_d, f_g):
     """
     resultingforcenow = f_t + f_d + f_g
     return resultingforcenow
+
+
+def angle(v_r, dx_dt, r_e, h_r):
+    """
+    Calculates the change of the angle of the rocket to the horizon
+    :param v_r: Speed of the rocket (Double)
+    :param dx_dt: Change of the position of the rocket (Double)
+    :param r_e: Radius of the planet the rocket is orbiting (Double)
+    :param h_r: Height of the rocket above the planet (Double)
+    :return: Returns the new angle of the rocket to the horizon (Double) [grad]
+    """
+
+    anglenow = math.acos(1 / v_r * dx_dt * (r_e + h_r) / r_e)
+    return math.degrees(anglenow)
