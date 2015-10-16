@@ -126,10 +126,10 @@ class AngleTest(unittest.TestCase):
             Formula.angle(0.0, 0.0, 0.0, 0.0)
 
     def test_AnglePositive(self):
-        self.assertTrue(Formula.angle(10.0, 3.0, 1000.0, 400.0) == 0.42, "[!] Positive test failed!")
+        self.assertTrue(Formula.angle(10.0, 3.0, 1000.0, 400.0) == 65.16541251029841, "[!] Positive test failed!")
 
     def test_AngleNegative(self):
-        self.assertTrue(Formula.angle(-10.0, 3.0, 1000.0, 400.0) == -0.42, "[!] Negative test failed!")
+        self.assertTrue(Formula.angle(-10.0, 3.0, 1000.0, 400.0) == 114.83458748970159, "[!] Negative test failed!")
 
     def testAngleFalseNonZero(self):
         self.assertFalse(Formula.angle(10.0, 3.0, 1000.0, 400.0) == 14.0, "[!] False non-zero failed!")
