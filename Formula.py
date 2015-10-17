@@ -151,25 +151,25 @@ def velocity(v_0, d_t, a_r):
     return velocitynow
 
 
-def resfx(f_r, angle_r):
+def resx(res, angle_r):
     """
     Calculates the resulting force in x-direction
-    :param f_r: resulting force of drag, thrust and gravity (Double)
+    :param res: resulting factor in rocket direction (Double)
     :param angle_r: angle the rocket is facing to the horizon (Double) [grad]
-    :return: resulting force in x-direction (Double) [N]
+    :return: resulting factor in x-direction (Double) [N]
     """
     anglerad_r = math.radians(angle_r)
-    resfxnow = f_r * math.cos(anglerad_r)
-    return resfxnow
+    resxnow = res * math.cos(anglerad_r)
+    return resxnow
 
 
-def resfy(f_r, angle_r):
+def resy(res, angle_r):
     """
     Calculates the resulting force in y-direction
-    :param f_r: resulting force of drag, thrust and gravity (Double)
+    :param res: resulting factor in rocket direction (Double)
     :param angle_r: angle the rocket is facing to the horizon (Double) [grad]
-    :return: resulting force in y-direction (Double) [N]
+    :return: resulting factor in y-direction (Double) [N]
     """
     anglerad_r = math.radians(angle_r)
-    resfxnow = f_r * math.sin(anglerad_r)
-    return resfxnow
+    resynow = res * math.sin(anglerad_r)
+    return resynow

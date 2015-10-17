@@ -169,31 +169,31 @@ class VelocityTest(unittest.TestCase):
 class ResFxTest(unittest.TestCase):
 
     def test_ResFxZero(self):
-        self.assertTrue(Formula.resfx(0.0, 0.0) == 0.0, "[!] Zero test failed!")
+        self.assertTrue(Formula.resx(0.0, 0.0) == 0.0, "[!] Zero test failed!")
 
     def test_ResFxPositive(self):
-        self.assertTrue(Formula.resfx(10.0, 20.0) == 9.396926207859085, "[!] Positive test failed!")
+        self.assertTrue(Formula.resx(10.0, 20.0) == 9.396926207859085, "[!] Positive test failed!")
 
     def test_ResFxNegative(self):
-        self.assertTrue(Formula.resfx(10.0, -20.0) == 9.396926207859085, "[!] Negative test failed!")
+        self.assertTrue(Formula.resx(10.0, -20.0) == 9.396926207859085, "[!] Negative test failed!")
 
     def test_ResFxFalseNonZero(self):
-        self.assertFalse(Formula.resfx(10.0, 20.0) == 14.1334, "[!] False non-zero test failed!")
+        self.assertFalse(Formula.resx(10.0, 20.0) == 14.1334, "[!] False non-zero test failed!")
 
 
 class ResFyTest(unittest.TestCase):
 
     def test_ResFyZero(self):
-        self.assertTrue(Formula.resfy(0.0, 0.0) == 0.0, "[!] Zero test failed!")
+        self.assertTrue(Formula.resy(0.0, 0.0) == 0.0, "[!] Zero test failed!")
 
     def test_ResFyPositive(self):
-        self.assertTrue(Formula.resfy(10.0, 20.0) == 3.420201433256687, "[!] Positive test failed!")
+        self.assertTrue(Formula.resy(10.0, 20.0) == 3.420201433256687, "[!] Positive test failed!")
 
     def test_ResFyNegative(self):
-        self.assertTrue(Formula.resfy(10.0, -20.0) == -3.420201433256687, "[!] Negative test failed!")
+        self.assertTrue(Formula.resy(10.0, -20.0) == -3.420201433256687, "[!] Negative test failed!")
 
     def test_ResFyFalseNonZero(self):
-        self.assertFalse(Formula.resfy(10.0, 20.0) == 14.1334, "[!] False non-zero test failed!")
+        self.assertFalse(Formula.resy(10.0, 20.0) == 14.1334, "[!] False non-zero test failed!")
 
 
 class WayTest(unittest.TestCase):
