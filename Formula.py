@@ -28,16 +28,16 @@ def thrust(m_dt, v_p, s_e, p_p, p_amb):
     return thrust_now
 
 
-def drag(density, v_r, s_r, c_d):
+def drag(density_amb, v_r, s_r, c_d):
     """
     Calculates the drag the rocket experiences based on the following inputs
-    :param density: Density of the medium the rocket is travelling in (Double)
+    :param density_amb: Density of the medium the rocket is travelling in (Double)
     :param v_r: Velocity of the rocket in travelling direction (Double)
     :param s_r: Surface area of the rocket that is exposed to drag (Double)
     :param c_d: Drag coefficient of the rocket (Double)
     :return: Drag experienced by the rocket (Double) [N]
     """
-    drag_now = 1.0 / 2.0 * density * v_r**2 * s_r * c_d
+    drag_now = 1.0 / 2.0 * density_amb * v_r**2 * s_r * c_d
     return drag_now
 
 
@@ -57,14 +57,14 @@ def gravity(m_p, m_r, distance):
     return gravity_now
 
 
-def pressure(p_h0, a, h1, h0, t_ho):
+def pressure(p_h0, a, h1, h0, t_h0):
     """
     Calculates the pressure at a certain height
     :param p_h0: Pressure at the lower end of the atmosphere layer (Double)
     :param a: Temperature gradient for the atmosphere layer (Double)
     :param h1: Height of the rocket (Double)
     :param h0: Height of the lower end of the atmosphere layer (Double)
-    :param t_ho: Temperature at the lower end of the atmosphere layer (Double)
+    :param t_h0: Temperature at the lower end of the atmosphere layer (Double)
     :return: Pressure at the height of the rocket [Pa]
     """
     global g
@@ -72,7 +72,7 @@ def pressure(p_h0, a, h1, h0, t_ho):
     global R
     expo = (M * g) / (R * a)
     height_diff = h1 - h0
-    quot = (a * height_diff) / t_ho
+    quot = (a * height_diff) / t_h0
     pressure_now = p_h0 * (1 - quot)**expo
     return pressure_now
 
@@ -80,7 +80,7 @@ def pressure(p_h0, a, h1, h0, t_ho):
 def temperature(t_h0, a, h0, h1):
     """
     Calculates the temperature at a certain height
-    :param T_h0: Temperature at the lowest point of the atmosphere layer (Double)
+    :param t_h0: Temperature at the lowest point of the atmosphere layer (Double)
     :param a: Temperature gradient for the atmosphere layer (Double)
     :param h0: Height of the lower end of the atmosphere layer (Double)
     :param h1: Height of the rocket (Double)
