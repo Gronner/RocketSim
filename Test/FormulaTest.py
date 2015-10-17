@@ -197,16 +197,16 @@ class ResYTest(unittest.TestCase):
 class WayTest(unittest.TestCase):
 
     def test_WayZero(self):
-        self.assertEqual(Formula.way(0.0, 0.0, 0.0, 0.0), 0.0)
+        self.assertEqual(Formula.way(0.0, 0.0, 0.0), 0.0)
 
     def test_WayPositive(self):
-        self.assertEqual(Formula.way(10.0, 1.0, 10.0, 9.81), 24.905)
+        self.assertEqual(Formula.way(1.0, 10.0, 9.81), 14.905000000000001)
 
     def test_WayNegative(self):
-        self.assertEqual(Formula.way(-10.0, -1.0, 10.0, 9.81), -15.094999999999999)
+        self.assertEqual(Formula.way(-1.0, 10.0, 9.81), -5.095)
 
     def test_WayFalseNonZero(self):
-        self.assertNotEqual(Formula.way(10.0, 1.0, 10.0, 9.81), 12.032)
+        self.assertNotEqual(Formula.way(1.0, 10.0, 9.81), 12.032)
 
 
 class PositionTest(unittest.TestCase):

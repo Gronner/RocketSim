@@ -14,84 +14,80 @@ R = 8.314           # universal gas constant                [J/(K*mol)]
 g = 9.807           # Earths gravitational acceleration     [m/s^2]
 
 
-def thrust(m_dt, v_p, s_e, p_p, p_amb):
+def thrust(mass_change, velocity_propellant, surface_nozzle, pressure_nozzle, pressure_ambient):
     """
     Calculates the thrust the engine is producing based on the following inputs
-    :param m_dt: Change of mass of propellant (Double)
-    :param v_p: Velocity of propellant (Double)
-    :param s_e: Surface area of the exit nozzle (Double)
-    :param p_p: Pressure in the area of the nozzle (Double)
-    :param p_amb: Pressure of the ambient (Double)
+    :param mass_change: Change of mass of propellant (Double)
+    :param velocity_propellant: Velocity of propellant (Double)
+    :param surface_nozzle: Surface area of the exit nozzle (Double)
+    :param pressure_nozzle: Pressure in the area of the nozzle (Double)
+    :param pressure_ambient: Pressure of the ambient (Double)
     :return: Thrust produced by the engine (Double) [N]
     """
-    thrust_now = m_dt * v_p + s_e * (p_p - p_amb)
-    return thrust_now
+    return mass_change * velocity_propellant + surface_nozzle * (pressure_nozzle - pressure_ambient)
 
 
-def drag(density_amb, v_r, s_r, c_d):
+def drag(density_ambient, velocity_rocket, surface_rocket, drag_coefficient):
     """
     Calculates the drag the rocket experiences based on the following inputs
-    :param density_amb: Density of the medium the rocket is travelling in (Double)
-    :param v_r: Velocity of the rocket in travelling direction (Double)
-    :param s_r: Surface area of the rocket that is exposed to drag (Double)
-    :param c_d: Drag coefficient of the rocket (Double)
+    :param density_ambient: Density of the medium the rocket is travelling in (Double)
+    :param velocity_rocket: Velocity of the rocket in travelling direction (Double)
+    :param surface_rocket: Surface area of the rocket that is exposed to drag (Double)
+    :param drag_coefficient: Drag coefficient of the rocket (Double)
     :return: Drag experienced by the rocket (Double) [N]
     """
-    drag_now = 1.0 / 2.0 * density_amb * v_r**2 * s_r * c_d
-    return drag_now
+    return 1.0 / 2.0 * density_ambient * velocity_rocket**2 * surface_rocket * drag_coefficient
 
 
-def gravity(m_p, m_r, distance):
+def gravity(mass_planet, mass_rocket, distance):
     """
     Calculates the gravitational force between the planet and the rocket,
     raises an exception if distance is zero or force is negative
-    :param m_p: Mass of the planet (Double)
-    :param m_r: Mass of the rocket (Double)
+    :param mass_planet: Mass of the planet (Double)
+    :param mass_rocket: Mass of the rocket (Double)
     :param distance: Distance between the center of mass of the rocket and the planet (non-zero Double)
     :return: gravitational fore (positive Double) [N]
     """
     global G
-    gravity_now = G * (m_p * m_r) / distance**2
+    gravity_now = G * (mass_planet * mass_rocket) / distance**2
     if gravity_now < 0:
         raise ValueError("No negative gravity possible!")
     return gravity_now
 
 
-def pressure(p_h0, a, h1, h0, t_h0):
+def pressure(pressure_height_low, temp_gradient, heigth_rocket, heigth_low, temp_height_low):
     """
     Calculates the pressure at a certain height
-    :param p_h0: Pressure at the lower end of the atmosphere layer (Double)
-    :param a: Temperature gradient for the atmosphere layer (Double)
-    :param h1: Height of the rocket (Double)
-    :param h0: Height of the lower end of the atmosphere layer (Double)
-    :param t_h0: Temperature at the lower end of the atmosphere layer (Double)
+    :param pressure_height_low: Pressure at the lower end of the atmosphere layer (Double)
+    :param temp_gradient: Temperature gradient for the atmosphere layer (Double)
+    :param heigth_rocket: Height of the rocket (Double)
+    :param heigth_low: Height of the lower end of the atmosphere layer (Double)
+    :param temp_height_low: Temperature at the lower end of the atmosphere layer (Double)
     :return: Pressure at the height of the rocket [Pa]
     """
     global g
     global M
     global R
-    expo = (M * g) / (R * a)
-    height_diff = h1 - h0
-    quot = (a * height_diff) / t_h0
-    pressure_now = p_h0 * (1 - quot)**expo
-    return pressure_now
+    expo = (M * g) / (R * temp_gradient)
+    height_diff = heigth_rocket - heigth_low
+    quot = (temp_gradient * height_diff) / temp_height_low
+    return pressure_height_low * (1 - quot)**expo
 
 
-def temperature(t_h0, a, h0, h1):
+def temperature(temp_height_low, temp_gradient, heigth_low, height_rocket):
     """
     Calculates the temperature at a certain height
-    :param t_h0: Temperature at the lowest point of the atmosphere layer (Double)
-    :param a: Temperature gradient for the atmosphere layer (Double)
-    :param h0: Height of the lower end of the atmosphere layer (Double)
-    :param h1: Height of the rocket (Double)
+    :param temp_height_low: Temperature at the lowest point of the atmosphere layer (Double)
+    :param temp_gradient: Temperature gradient for the atmosphere layer (Double)
+    :param heigth_low: Height of the lower end of the atmosphere layer (Double)
+    :param height_rocket: Height of the rocket (Double)
     :return: Temperature at the height of the rocket (Double) [K]
     """
-    height_diff = h1 - h0
-    temperature_now = t_h0 * (1 - a*height_diff)
-    return temperature_now
+    height_diff = height_rocket - heigth_low
+    return temp_height_low * (1 - temp_gradient*height_diff)
 
 
-def density(p_h, t_h):
+def density(pressure_medium, temp_height):
     """
     Calculates the atmospheres density at a certain height
     :param p_h: The pressure of the medium depending on the height (Double)
@@ -100,102 +96,93 @@ def density(p_h, t_h):
     """
     global R
     global M
-    density_now = (p_h * M) / (R * t_h)
-    return density_now
+    return (pressure_medium * M) / (R * temp_height)
 
 
-def resulting_force(f_t, f_d, f_g):
+def resulting_force(force_thrust, force_drag, force_gravity):
     """
     Calculates the resulting force from the three main forces
-    :param f_t: Force produced by thrust (Double)
-    :param f_d: Force produced by drag (Double)
-    :param f_g: Force applied by gravity (Double)
+    :param force_thrust: Force produced by thrust (Double)
+    :param force_drag: Force produced by drag (Double)
+    :param force_gravity: Force applied by gravity (Double)
     :return: Sum of the three forces (Double) [N]
     """
-    resulting_force_now = f_t + f_d + f_g
-    return resulting_force_now
+    return force_thrust + force_drag + force_gravity
 
 
-def angle(v_r, dx_dt, r_e, h_r):
+def angle(velocity_rocket, pos_change, radius_planet, height_rocket):
     """
     Calculates the change of the angle of the rocket to the horizon
-    :param v_r: Speed of the rocket (Double)
-    :param dx_dt: Change of the position of the rocket (Double)
-    :param r_e: Radius of the planet the rocket is orbiting (Double)
-    :param h_r: Height of the rocket above the planet (Double)
+    :param velocity_rocket: Speed of the rocket (Double)
+    :param pos_change: Change of the position of the rocket (Double)
+    :param radius_planet: Radius of the planet the rocket is orbiting (Double)
+    :param height_rocket: Height of the rocket above the planet (Double)
     :return: Returns the new angle of the rocket to the horizon (Double) [grad]
     """
-    angle_now = math.acos(1 / v_r * dx_dt * (r_e + h_r) / r_e)
+    angle_now = math.acos(1 / velocity_rocket * pos_change * (radius_planet + height_rocket) / radius_planet)
     return math.degrees(angle_now)
 
 
-def acceleration(f_r, m_r):
+def acceleration(force_result, mass_rocket):
     """
     Calculates the acceleration of the rocket based on its mass and the force it's experiencing
-    :param f_r: Resulting force of drag, thrust and gravity (Double)
-    :param m_r: Mass of the rocket depending on parts and carried fuel (Double)
+    :param force_result: Resulting force of drag, thrust and gravity (Double)
+    :param mass_rocket: Mass of the rocket depending on parts and carried fuel (Double)
     :return: Acceleration of the rocket (Double) [m/s^2]
     """
-    acceleration_now = f_r / m_r
-    return acceleration_now
+    return force_result / mass_rocket
 
 
-def velocity(v_0, d_t, a_r):
+def velocity(velocity_t0, duration_interval, acceleration_rocket):
     """
     Calculates the velocity of the rocket at a certain time interval
-    :param v_0: Velocity at the beginning of the time interval (Double)
-    :param d_t: Duration of the interval (Double)
-    :param a_r: Acceleration of the rocket during the interval (Double)
+    :param velocity_t0: Velocity at the beginning of the time interval (Double)
+    :param duration_interval: Duration of the interval (Double)
+    :param acceleration_rocket: Acceleration of the rocket during the interval (Double)
     :return: Velocity of the rocket at the end of the interval (Double) [m/s]
     """
-    velocity_now = v_0 + d_t * a_r
-    return velocity_now
+    return velocity_t0 + duration_interval * acceleration_rocket
 
 
-def way(way_0, d_t, v_t, a_t):
+def way(duration_interval, velocity_rocket, acceleration_rocket):
     """
-    Calculates the current position of the rocket at a certain time
-    :param way_0: Position of the rocket at the beginning of the time interval (Double)
-    :param d_t: Duration of the interval (Double)
-    :param v_t: Velocity of the rocket during the interval (Double)
-    :param a_t: Acceleration of the rocket during the interval (Double)
-    :return: Position of the rocket at the end of the time interval (Double) [m]
+    Calculates the change of the position of the rocket at a certain time
+    :param duration_interval: Duration of the interval (Double)
+    :param velocity_rocket: Velocity of the rocket during the interval (Double)
+    :param acceleration_rocket: Acceleration of the rocket during the interval (Double)
+    :return: Change in position of the rocket at the end of the time interval (Double) [m]
     """
-    way_now = way_0 + d_t * v_t + 1.0 / 2.0 * a_t * d_t**2
-    return way_now
+    return duration_interval * velocity_rocket + 1.0 / 2.0 * acceleration_rocket * duration_interval**2
 
 
-def res_x(res, angle_r):
+def res_x(factor_result, angle_rocket):
     """
     Calculates the resulting force in x-direction
-    :param res: resulting factor in rocket direction (Double)
-    :param angle_r: angle the rocket is facing to the horizon (Double) [grad]
+    :param factor_result: resulting factor in rocket direction (Double)
+    :param angle_rocket: angle the rocket is facing to the horizon (Double) [grad]
     :return: resulting factor in x-direction (Double) [N]
     """
-    angle_rad_r = math.radians(angle_r)
-    res_x_now = res * math.cos(angle_rad_r)
-    return res_x_now
+    angle_rad_r = math.radians(angle_rocket)
+    return factor_result * math.cos(angle_rad_r)
 
 
-def res_y(res, angle_r):
+def res_y(factor_result, angle_rocket):
     """
     Calculates the resulting force in y-direction
-    :param res: resulting factor in rocket direction (Double)
-    :param angle_r: angle the rocket is facing to the horizon (Double) [grad]
+    :param factor_result: resulting factor in rocket direction (Double)
+    :param angle_rocket: angle the rocket is facing to the horizon (Double) [grad]
     :return: resulting factor in y-direction (Double) [N]
     """
-    angle_rad_r = math.radians(angle_r)
-    resy_now = res * math.sin(angle_rad_r)
-    return resy_now
+    angle_rad_r = math.radians(angle_rocket)
+    return factor_result * math.sin(angle_rad_r)
 
 
-def position(pos_0, way_t):
+def position(pos_t0, way_traveled):
     """
     Calculates the new position of the rocket
-    :param pos_0: Last position of the rocket (Double)
-    :param way: Length traveled of the rocket (Double)
+    :param pos_t0: Last position of the rocket (Double)
+    :param way_traveled: Length traveled of the rocket (Double)
     :return: New Position of the rocket
     """
-    pos_now = pos_0 + way_t
-    return pos_now
+    return pos_t0 + way_traveled
 
