@@ -151,6 +151,19 @@ def velocity(v_0, d_t, a_r):
     return velocitynow
 
 
+def way(pos, d_t, v_t, a_t):
+    """
+    Calculates the current position of the rocket at a certain time
+    :param pos: Position of the rocket at the beginning of the time interval (Double)
+    :param d_t: Duration of the interval (Double)
+    :param v_t: Velocity of the rocket during the interval (Double)
+    :param a_t: Acceleration of the rocket during the interval (Double)
+    :return: Position of the rocket at the end of the time interval (Double) [m]
+    """
+    posnow = pos + d_t * v_t + 1.0 / 2.0 * a_t * d_t**2
+    return posnow
+
+
 def resx(res, angle_r):
     """
     Calculates the resulting force in x-direction
@@ -173,3 +186,4 @@ def resy(res, angle_r):
     anglerad_r = math.radians(angle_r)
     resynow = res * math.sin(anglerad_r)
     return resynow
+
