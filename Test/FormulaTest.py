@@ -205,7 +205,7 @@ class WayTest(unittest.TestCase):
         self.assertTrue(Formula.way(10.0, 1.0, 10.0, 9.81) == 24.905, "[!] Positive test failed!")
 
     def test_WayNegative(self):
-        self.assertTrue(Formula.way(-10.0, -1.0, 10.0, 9.81) == -24.905, "[!] Positive test failed!")
+        self.assertTrue(Formula.way(-10.0, -1.0, 10.0, 9.81) == -15.094999999999999, "[!] Negative test failed!")
 
     def test_WayFalseNonZero(self):
         self.assertFalse(Formula.way(10.0, 1.0, 10.0, 9.81) == 12.032, "[!] False non-zero test failed!")
