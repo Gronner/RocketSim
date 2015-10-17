@@ -166,6 +166,21 @@ class VelocityTest(unittest.TestCase):
         self.assertFalse(Formula.velocity(10.0, 1.0, 9.81) == 14.03, "[!] False non-zero test failed!")
 
 
+class ResFxTest(unittest.TestCase):
+
+    def test_ResFxZero(self):
+        self.assertTrue(Formula.resfx(0.0, 0.0) == 0.0, "[!] Zero test failed!")
+
+    def test_ResFxPostive(self):
+        self.assertTrue(Formula.resfx(10.0, 20.0) == 9.396926207859085, "[!] Positive test failed!")
+
+    def test_ResFxNegative(self):
+        self.assertTrue(Formula.resfx(10.0, -20.0) == 9.396926207859085, "[!] Negative test failed!")
+
+    def test_ResFxFalseNonZero(self):
+        self.assertFalse(Formula.resfx(10.0, 20.0) == 14.1334, "[!] False non-zero test failed!")
+
+
 def main():
     unittest.main()
 
