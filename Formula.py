@@ -13,6 +13,7 @@ M = 0.02896         # Molar mass of atmosphere gasses       [kg/mol]
 R = 8.314           # universal gas constant                [J/(K*mol)]
 g = 9.807           # Earths gravitational acceleration     [m/s^2]
 
+
 def thrust(m_dt, v_p, s_e, p_p, p_amb):
     """
     Calculates the thrust the engine is producing based on the following inputs
@@ -23,8 +24,8 @@ def thrust(m_dt, v_p, s_e, p_p, p_amb):
     :param p_amb: Pressure of the ambient (Double)
     :return: Thrust produced by the engine (Double) [N]
     """
-    thrustnow = m_dt * v_p + s_e * (p_p - p_amb)
-    return thrustnow
+    thrust_now = m_dt * v_p + s_e * (p_p - p_amb)
+    return thrust_now
 
 
 def drag(density, v_r, s_r, c_d):
@@ -36,8 +37,8 @@ def drag(density, v_r, s_r, c_d):
     :param c_d: Drag coefficient of the rocket (Double)
     :return: Drag experienced by the rocket (Double) [N]
     """
-    dragnow = 1.0 / 2.0 * density * v_r**2 * s_r * c_d
-    return dragnow
+    drag_now = 1.0 / 2.0 * density * v_r**2 * s_r * c_d
+    return drag_now
 
 
 def gravity(m_p, m_r, distance):
@@ -50,10 +51,10 @@ def gravity(m_p, m_r, distance):
     :return: gravitational fore (positive Double) [N]
     """
     global G
-    gravitynow = G * (m_p * m_r) / distance**2
-    if gravitynow < 0:
+    gravity_now = G * (m_p * m_r) / distance**2
+    if gravity_now < 0:
         raise ValueError("No negative gravity possible!")
-    return gravitynow
+    return gravity_now
 
 
 def pressure(p_h0, a, h1, h0, t_ho):
@@ -70,10 +71,10 @@ def pressure(p_h0, a, h1, h0, t_ho):
     global M
     global R
     expo = (M * g) / (R * a)
-    heightdiff = h1 - h0
-    quot = (a * heightdiff) / t_ho
-    pressurenow = p_h0 * (1 - quot)**expo
-    return pressurenow
+    height_diff = h1 - h0
+    quot = (a * height_diff) / t_ho
+    pressure_now = p_h0 * (1 - quot)**expo
+    return pressure_now
 
 
 def temperature(t_h0, a, h0, h1):
@@ -85,9 +86,9 @@ def temperature(t_h0, a, h0, h1):
     :param h1: Height of the rocket (Double)
     :return: Temperature at the height of the rocket (Double) [K]
     """
-    heightdiff = h1 - h0
-    temperaturenow = t_h0 * (1 - a*heightdiff)
-    return temperaturenow
+    height_diff = h1 - h0
+    temperature_now = t_h0 * (1 - a*height_diff)
+    return temperature_now
 
 
 def density(p_h, t_h):
@@ -99,20 +100,20 @@ def density(p_h, t_h):
     """
     global R
     global M
-    densitynow = (p_h * M) / (R * t_h)
-    return densitynow
+    density_now = (p_h * M) / (R * t_h)
+    return density_now
 
 
-def resultingforce(f_t, f_d, f_g):
+def resulting_force(f_t, f_d, f_g):
     """
     Calculates the resulting force from the three main forces
-    :param F_T: Force produced by thrust (Double)
-    :param F_D: Force produced by drag (Double)
-    :param F_G: Force applied by gravity (Double)
+    :param f_t: Force produced by thrust (Double)
+    :param f_d: Force produced by drag (Double)
+    :param f_g: Force applied by gravity (Double)
     :return: Sum of the three forces (Double) [N]
     """
-    resultingforcenow = f_t + f_d + f_g
-    return resultingforcenow
+    resulting_force_now = f_t + f_d + f_g
+    return resulting_force_now
 
 
 def angle(v_r, dx_dt, r_e, h_r):
@@ -124,8 +125,8 @@ def angle(v_r, dx_dt, r_e, h_r):
     :param h_r: Height of the rocket above the planet (Double)
     :return: Returns the new angle of the rocket to the horizon (Double) [grad]
     """
-    anglenow = math.acos(1 / v_r * dx_dt * (r_e + h_r) / r_e)
-    return math.degrees(anglenow)
+    angle_now = math.acos(1 / v_r * dx_dt * (r_e + h_r) / r_e)
+    return math.degrees(angle_now)
 
 
 def acceleration(f_r, m_r):
@@ -135,8 +136,8 @@ def acceleration(f_r, m_r):
     :param m_r: Mass of the rocket depending on parts and carried fuel (Double)
     :return: Acceleration of the rocket (Double) [m/s^2]
     """
-    accelerationnow = f_r / m_r
-    return accelerationnow
+    acceleration_now = f_r / m_r
+    return acceleration_now
 
 
 def velocity(v_0, d_t, a_r):
@@ -147,8 +148,8 @@ def velocity(v_0, d_t, a_r):
     :param a_r: Acceleration of the rocket during the interval (Double)
     :return: Velocity of the rocket at the end of the interval (Double) [m/s]
     """
-    velocitynow = v_0 + d_t * a_r
-    return velocitynow
+    velocity_now = v_0 + d_t * a_r
+    return velocity_now
 
 
 def way(way_0, d_t, v_t, a_t):
@@ -160,32 +161,32 @@ def way(way_0, d_t, v_t, a_t):
     :param a_t: Acceleration of the rocket during the interval (Double)
     :return: Position of the rocket at the end of the time interval (Double) [m]
     """
-    waynow = way_0 + d_t * v_t + 1.0 / 2.0 * a_t * d_t**2
-    return waynow
+    way_now = way_0 + d_t * v_t + 1.0 / 2.0 * a_t * d_t**2
+    return way_now
 
 
-def resx(res, angle_r):
+def res_x(res, angle_r):
     """
     Calculates the resulting force in x-direction
     :param res: resulting factor in rocket direction (Double)
     :param angle_r: angle the rocket is facing to the horizon (Double) [grad]
     :return: resulting factor in x-direction (Double) [N]
     """
-    anglerad_r = math.radians(angle_r)
-    resxnow = res * math.cos(anglerad_r)
-    return resxnow
+    angle_rad_r = math.radians(angle_r)
+    res_x_now = res * math.cos(angle_rad_r)
+    return res_x_now
 
 
-def resy(res, angle_r):
+def res_y(res, angle_r):
     """
     Calculates the resulting force in y-direction
     :param res: resulting factor in rocket direction (Double)
     :param angle_r: angle the rocket is facing to the horizon (Double) [grad]
     :return: resulting factor in y-direction (Double) [N]
     """
-    anglerad_r = math.radians(angle_r)
-    resynow = res * math.sin(anglerad_r)
-    return resynow
+    angle_rad_r = math.radians(angle_r)
+    resy_now = res * math.sin(angle_rad_r)
+    return resy_now
 
 
 def position(pos_0, way_t):
@@ -195,6 +196,6 @@ def position(pos_0, way_t):
     :param way: Length traveled of the rocket (Double)
     :return: New Position of the rocket
     """
-    posnow = pos_0 + way_t
-    return posnow
+    pos_now = pos_0 + way_t
+    return pos_now
 

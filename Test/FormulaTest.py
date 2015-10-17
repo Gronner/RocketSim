@@ -109,16 +109,16 @@ class DensityTest(unittest.TestCase):
 class ResultingForceTest(unittest.TestCase):
 
     def test_ResultingForceZero(self):
-        self.assertTrue(Formula.resultingforce(0.0, 0.0, 0.0) == 0.0, "[!] Res force zero test failed")
+        self.assertTrue(Formula.resulting_force(0.0, 0.0, 0.0) == 0.0, "[!] Res force zero test failed")
 
     def test_ResultingForcePositive(self):
-        self.assertTrue(Formula.resultingforce(100.0, 10.0, 1000.0) == 1110.0, "[!] Res force positive test failed!")
+        self.assertTrue(Formula.resulting_force(100.0, 10.0, 1000.0) == 1110.0, "[!] Res force positive test failed!")
 
     def test_ResultingForceNegative(self):
-        self.assertTrue(Formula.resultingforce(-100.0, -10.0, -1000.0) == -1110.0, "[!] Res force negative test failed")
+        self.assertTrue(Formula.resulting_force(-100.0, -10.0, -1000.0) == -1110.0, "[!] Res force negative test failed")
 
     def test_ResultingForceFalseNonZero(self):
-        self.assertFalse(Formula.resultingforce(-100.0, 10.0, -1000.0) == -1110.0, "\
+        self.assertFalse(Formula.resulting_force(-100.0, 10.0, -1000.0) == -1110.0, "\
         [!] Res force false non-zero test failed")
 
 
@@ -173,31 +173,31 @@ class VelocityTest(unittest.TestCase):
 class ResXTest(unittest.TestCase):
 
     def test_ResXZero(self):
-        self.assertTrue(Formula.resx(0.0, 0.0) == 0.0, "[!] Res X zero test failed!")
+        self.assertTrue(Formula.res_x(0.0, 0.0) == 0.0, "[!] Res X zero test failed!")
 
     def test_ResXPositive(self):
-        self.assertTrue(Formula.resx(10.0, 20.0) == 9.396926207859085, "[!] Res X positive test failed!")
+        self.assertTrue(Formula.res_x(10.0, 20.0) == 9.396926207859085, "[!] Res X positive test failed!")
 
     def test_ResXNegative(self):
-        self.assertTrue(Formula.resx(10.0, -20.0) == 9.396926207859085, "[!] Res X negative test failed!")
+        self.assertTrue(Formula.res_x(10.0, -20.0) == 9.396926207859085, "[!] Res X negative test failed!")
 
     def test_ResXFalseNonZero(self):
-        self.assertFalse(Formula.resx(10.0, 20.0) == 14.1334, "[!] Res X false non-zero test failed!")
+        self.assertFalse(Formula.res_x(10.0, 20.0) == 14.1334, "[!] Res X false non-zero test failed!")
 
 
 class ResYTest(unittest.TestCase):
 
     def test_ResYZero(self):
-        self.assertTrue(Formula.resy(0.0, 0.0) == 0.0, "[!] Res Y zero test failed!")
+        self.assertTrue(Formula.res_y(0.0, 0.0) == 0.0, "[!] Res Y zero test failed!")
 
     def test_ResYPositive(self):
-        self.assertTrue(Formula.resy(10.0, 20.0) == 3.420201433256687, "[!] Res Y positive test failed!")
+        self.assertTrue(Formula.res_y(10.0, 20.0) == 3.420201433256687, "[!] Res Y positive test failed!")
 
     def test_ResYNegative(self):
-        self.assertTrue(Formula.resy(10.0, -20.0) == -3.420201433256687, "[!] Res Y negative test failed!")
+        self.assertTrue(Formula.res_y(10.0, -20.0) == -3.420201433256687, "[!] Res Y negative test failed!")
 
     def test_ResYFalseNonZero(self):
-        self.assertFalse(Formula.resy(10.0, 20.0) == 14.1334, "[!] Res Y false non-zero test failed!")
+        self.assertFalse(Formula.res_y(10.0, 20.0) == 14.1334, "[!] Res Y false non-zero test failed!")
 
 
 class WayTest(unittest.TestCase):
