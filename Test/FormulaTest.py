@@ -190,7 +190,7 @@ class ResFyTest(unittest.TestCase):
         self.assertTrue(Formula.resfy(10.0, 20.0) == 3.420201433256687, "[!] Positive test failed!")
 
     def test_ResFyNegative(self):
-        self.assertTrue(Formula.resfy(10.0, -20.0) == 3.420201433256687, "[!] Negative test failed!")
+        self.assertTrue(Formula.resfy(10.0, -20.0) == -3.420201433256687, "[!] Negative test failed!")
 
     def test_ResFyFalseNonZero(self):
         self.assertFalse(Formula.resfy(10.0, 20.0) == 14.1334, "[!] False non-zero test failed!")

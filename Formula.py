@@ -155,9 +155,20 @@ def resfx(f_r, angle_r):
     """
     Calculates the resulting force in x-direction
     :param f_r: resulting force of drag, thrust and gravity (Double)
-    :param angle_r: angle the rocket is facing to the horizon (Double) [rad]
+    :param angle_r: angle the rocket is facing to the horizon (Double) [grad]
     :return: resulting force in x-direction (Double) [N]
     """
     anglerad_r = math.radians(angle_r)
     resfxnow = f_r * math.cos(anglerad_r)
+    return resfxnow
+
+def resfy(f_r, angle_r):
+    """
+    Calculates the resulting force in y-direction
+    :param f_r: resulting force of drag, thrust and gravity (Double)
+    :param angle_r: angle the rocket is facing to the horizon (Double) [grad]
+    :return: resulting force in y-direction (Double) [N]
+    """
+    anglerad_r = math.radians(angle_r)
+    resfxnow = f_r * math.sin(anglerad_r)
     return resfxnow
