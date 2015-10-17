@@ -162,6 +162,7 @@ def resfx(f_r, angle_r):
     resfxnow = f_r * math.cos(anglerad_r)
     return resfxnow
 
+
 def resfy(f_r, angle_r):
     """
     Calculates the resulting force in y-direction

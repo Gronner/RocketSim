@@ -196,6 +196,21 @@ class ResFyTest(unittest.TestCase):
         self.assertFalse(Formula.resfy(10.0, 20.0) == 14.1334, "[!] False non-zero test failed!")
 
 
+class WayTest(unittest.TestCase):
+
+    def test_WayZero(self):
+        self.assertTrue(Formula.way(0.0, 0.0, 0.0, 0.0) == 0.0, "[!] Zero test failed!")
+
+    def test_WayPositive(self):
+        self.assertTrue(Formula.way(10.0, 1.0, 10.0, 9.81) == 24.905, "[!] Positive test failed!")
+
+    def test_WayNegative(self):
+        self.assertTrue(Formula.way(-10.0, -1.0, 10.0, 9.81) == -24.905, "[!] Positive test failed!")
+
+    def test_WayFalseNonZero(self):
+        self.assertFalse(Formula.way(10.0, 1.0, 10.0, 9.81) == 12.032, "[!] False non-zero test failed!")
+
+
 def main():
     unittest.main()
 
