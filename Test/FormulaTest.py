@@ -211,6 +211,21 @@ class WayTest(unittest.TestCase):
         self.assertFalse(Formula.way(10.0, 1.0, 10.0, 9.81) == 12.032, "[!] False non-zero test failed!")
 
 
+class PositionTest(unittest.TestCase):
+
+    def test_PositionZero(self):
+        self.assertTrue(Formula.position(0.0, 0.0) == 0.0, "[!] Position zero test failed!")
+
+    def test_PositionPositive(self):
+        self.assertTrue(Formula.position(20.0, 123.0) == 143.00, "[!] Position positive test failed!")
+
+    def test_PositionNegative(self):
+        self.assertTrue(Formula.position(-20.0, -123.0) == -143.00, "[!] Position negative test failed!")
+
+    def test_PositionFalseNonZero(self):
+        self.assertFalse(Formula.position(30.0, -44.0) == -143.00, "[!] Position false non-zero test failed!")
+
+
 def main():
     unittest.main()
 
