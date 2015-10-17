@@ -150,6 +150,7 @@ def velocity(v_0, d_t, a_r):
     velocitynow = v_0 + d_t * a_r
     return velocitynow
 
+
 def resfx(f_r, angle_r):
     """
     Calculates the resulting force in x-direction
@@ -159,4 +160,4 @@ def resfx(f_r, angle_r):
     """
     anglerad_r = math.radians(angle_r)
     resfxnow = f_r * math.cos(anglerad_r)
-    return  resfxnow
+    return resfxnow
