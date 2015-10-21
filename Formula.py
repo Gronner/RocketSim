@@ -60,7 +60,7 @@ def pressure(pressure_height_low, temp_gradient, height_rocket, height_low, temp
     Calculates the pressure at a certain height
     :param pressure_height_low: Pressure at the lower end of the atmosphere layer (Double)
     :param temp_gradient: Temperature gradient for the atmosphere layer (Double)
-    :param height_rocket: Height of the rocket (Double)
+    :param height_rocket: Height of the rocket above the lower end of the layer(Double)
     :param height_low: Height of the lower end of the atmosphere layer (Double)
     :param temp_height_low: Temperature at the lower end of the atmosphere layer (Double)
     :return: Pressure at the height of the rocket [Pa]
