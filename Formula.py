@@ -55,13 +55,13 @@ def gravity(mass_planet, mass_rocket, distance):
     return gravity_now
 
 
-def pressure(pressure_height_low, temp_gradient, heigth_rocket, heigth_low, temp_height_low):
+def pressure(pressure_height_low, temp_gradient, height_rocket, height_low, temp_height_low):
     """
     Calculates the pressure at a certain height
     :param pressure_height_low: Pressure at the lower end of the atmosphere layer (Double)
     :param temp_gradient: Temperature gradient for the atmosphere layer (Double)
-    :param heigth_rocket: Height of the rocket (Double)
-    :param heigth_low: Height of the lower end of the atmosphere layer (Double)
+    :param height_rocket: Height of the rocket (Double)
+    :param height_low: Height of the lower end of the atmosphere layer (Double)
     :param temp_height_low: Temperature at the lower end of the atmosphere layer (Double)
     :return: Pressure at the height of the rocket [Pa]
     """
@@ -69,7 +69,7 @@ def pressure(pressure_height_low, temp_gradient, heigth_rocket, heigth_low, temp
     global M
     global R
     expo = (M * g) / (R * temp_gradient)
-    height_diff = heigth_rocket - heigth_low
+    height_diff = height_rocket - height_low
     quot = (temp_gradient * height_diff) / temp_height_low
     return pressure_height_low * (1 - quot)**expo
 
