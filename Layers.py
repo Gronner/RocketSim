@@ -30,3 +30,9 @@ class Layer(object):
 
     def set_temp_low(self, new_temp_low):
         self.temp_low = new_temp_low
+
+    def get_pressure_low(self):
+        return self.pressure_low
+
+    def set_pressure_low(self, new_pressure_low):
+        self.pressure_low = new_pressure_low
