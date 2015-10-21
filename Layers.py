@@ -24,3 +24,9 @@ class Layer(object):
 
     def set_temp_gradient(self, new_temp_gradient):
         self.temp_gradient = new_temp_gradient
+
+    def get_temp_low(self):
+        return self.temp_low
+
+    def set_temp_low(self, new_temp_low):
+        self.temp_low = new_temp_low
