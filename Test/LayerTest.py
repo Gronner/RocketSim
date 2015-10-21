@@ -72,7 +72,7 @@ class WidthTest(unittest.TestCase):
         self.temp_low = 30.0 + 272.5  # [K]
         self.pressure_low = 101325.0  # [Pa]
         self.layer_set = Layer(0.0, 0.0, 0.0, 0.0)
-        self.layer_set.set_temp_low(self.pressure_low)
+        self.layer_set.set_pressure_low(self.pressure_low)
         self.assertEqual(self.layer_set.get_pressure_low(), self.pressure_low)
 
 
