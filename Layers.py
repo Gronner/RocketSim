@@ -18,3 +18,9 @@ class Layer(object):
 
     def set_width(self, new_width_layer):
         self.width_layer = new_width_layer
+
+    def get_temp_gradient(self):
+        return self.temp_gradient
+
+    def set_temp_gradient(self, new_temp_gradient):
+        self.temp_gradient = new_temp_gradient
