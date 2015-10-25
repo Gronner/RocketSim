@@ -78,13 +78,13 @@ def temperature(temp_height_low, temp_gradient, heigth_low, height_rocket):
     """
     Calculates the temperature at a certain height
     :param temp_height_low: Temperature at the lowest point of the atmosphere layer (Double)
-    :param temp_gradient: Temperature gradient for the atmosphere layer (Double)
+    :param temp_gradient: Temperature gradient for the atmosphere layer (positive or negative Double)
     :param heigth_low: Height of the lower end of the atmosphere layer (Double)
     :param height_rocket: Height of the rocket (Double)
     :return: Temperature at the height of the rocket (Double) [K]
     """
     height_diff = height_rocket - heigth_low
-    return temp_height_low * (1 - temp_gradient*height_diff)
+    return temp_height_low + temp_gradient*height_diff
 
 
 def density(pressure_medium, temp_height):
