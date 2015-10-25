@@ -22,3 +22,9 @@ class Planet(object):
         :return: Mass of the planet (Double) [kg]
         """
         return self.mass_planet
+
+    def get_radius(self):
+        """
+        :return: Radius of the planet (Double) [m]
+        """
+        return self.radius_planet
