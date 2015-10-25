@@ -1,3 +1,6 @@
+import Formula
+
+
 class Layer(object):
 
     def __init__(self, width_layer, temp_gradient, temp_low, pressure_low):
@@ -36,3 +39,12 @@ class Layer(object):
 
     def set_pressure_low(self, new_pressure_low):
         self.pressure_low = new_pressure_low
+
+    def get_pressure_now(self, height_rocket, height_layer_below):
+        """
+        Calculates the pressure at the height the rocket currently is
+        :param height_rocket: Height of the rocket above the planets surface (Double)
+        :param height_layer_below: Accumulated height of the atmospheric layers beneath the current layer (Double)
+        :return: Pressure at the current height in the layer (Double) [Pa]
+        """
+        return Formula.pressure(self.pressure_low, self.temp_gradient, height_rocket, height_layer_below, self.temp_low)
