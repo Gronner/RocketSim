@@ -21,5 +21,10 @@ class Atmosphere(object):
             raise ValueError
         self.layers.append(new_layer)
 
+    def calc_height_below(self, layer_index):
+        height_below = 0
+        for i in range(0, layer_index):
+            height_below += self.layers[i].get_width()
+        return height_below
 
 
