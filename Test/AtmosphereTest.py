@@ -97,6 +97,27 @@ class CalcHeightBelowTest(unittest.TestCase):
         self.assertEqual(self.atmosphere.calc_height_below(1), 10000.0)
 
 
+class GetLayersTest(unittest.TestCase):
+
+    def test_GetLayersNoLayer(self):
+        self.atmosphere = Atmosphere()
+        self.assertEqual(self.atmosphere.get_layers(), [])
+
+    def test_GetLayersOneLayer(self):
+        self.atmosphere = Atmosphere()
+        self.layer_one = Layer(10000.0, 0.0, 0.0, 0.0)
+        self.atmosphere.add_layer(self.layer_one)
+        self.assertEqual(self.atmosphere.get_layers(), [self.layer_one])
+
+    def test_GetLayersNLayer(self):
+        self.atmosphere = Atmosphere()
+        self.layer_one = Layer(10000.0, 0.0, 0.0, 0.0)
+        self.layer_two = Layer(10000.0, 0.0, 0.0, 0.0)
+        self.atmosphere.add_layer(self.layer_one)
+        self.atmosphere.add_layer(self.layer_two)
+        self.assertEqual(self.atmosphere.get_layers(), [self.layer_one, self.layer_two])
+
+
 def main():
     unittest.main()
 
