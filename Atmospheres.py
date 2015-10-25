@@ -22,9 +22,26 @@ class Atmosphere(object):
         self.layers.append(new_layer)
 
     def calc_height_below(self, layer_index):
+        """
+        Calculates the accumulated height of the layers below the indexed layer
+        :param layer_index: Index of the layer the height below is calculated (Integer)
+        :return: Accumulated height of the layers below the indexed one (Double) [m]
+        """
         height_below = 0
         for i in range(0, layer_index):
             height_below += self.layers[i].get_width()
         return height_below
 
-
+    def get_layer(self, height_rocket):
+        """
+        Returns the layer the rocket is at the moment.
+        :param height_rocket: Height of the rocket above the planets surface (Double)
+        :return: The Layer the rocket currently is into (Layer)
+        """
+        current_layer = self.layers[0]
+        for i in range(0, len(self.layers)):
+            height_below = self.calc_height_below(i)
+            if height_below > height_rocket:
+                break
+            current_layer = self.layers[i]
+        return current_layer
