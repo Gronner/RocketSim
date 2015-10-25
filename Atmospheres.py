@@ -45,3 +45,10 @@ class Atmosphere(object):
                 break
             current_layer = self.layers[i]
         return current_layer
+
+    def get_layers(self):
+        """
+        Returns a list of the layers of this atmosphere object
+        :return: Layers of this atmosphere (List)
+        """
+        return self.layers
