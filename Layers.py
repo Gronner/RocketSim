@@ -17,27 +17,55 @@ class Layer(object):
         self.pressure_low = pressure_low
 
     def get_width(self):
+        """
+        :return: The width (vertical) of the atmospheric layer (Double) [m]
+        """
         return self.width_layer
 
     def set_width(self, new_width_layer):
+        """
+        Allows to set the width of the current layer
+        :param new_width_layer: New width of the atmospheric layer (Double) [m]
+        """
         self.width_layer = new_width_layer
 
     def get_temp_gradient(self):
+        """
+        :return: The temperature gradient of the current atmospheric layer (Double) [K/m]
+        """
         return self.temp_gradient
 
     def set_temp_gradient(self, new_temp_gradient):
+        """
+        Allows to set the temperature gradient of the atmospheric layer (Double)
+        :param new_temp_gradient: New temperature gradient of the atmospheric layer (Double) [K/m]
+        """
         self.temp_gradient = new_temp_gradient
 
     def get_temp_low(self):
+        """
+        :return: The temperature at the lower end of the layer (Double) [K]
+        """
         return self.temp_low
 
     def set_temp_low(self, new_temp_low):
+        """
+        Allows to set the temperature at the lower end of the atmospheric layer
+        :param new_temp_low: New temperature at the lower end of the layer (Double) [K]
+        """
         self.temp_low = new_temp_low
 
     def get_pressure_low(self):
+        """
+        :return: The pressure at the lower end of the layer (Double) [Pa]
+        """
         return self.pressure_low
 
     def set_pressure_low(self, new_pressure_low):
+        """
+        Allows to set the pressure at the lower end of the atmospheric layer
+        :param new_pressure_low: New pressure at the lower end of the atmospheric layer (Double) [Pa]
+        """
         self.pressure_low = new_pressure_low
 
     def get_pressure_now(self, height_rocket, height_layer_below):
