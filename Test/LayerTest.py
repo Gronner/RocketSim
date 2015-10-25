@@ -95,6 +95,16 @@ class WidthTest(unittest.TestCase):
         self.height_layer_below = 0.0  # [m]
         self.assertEqual(self.layer.get_temperature_now(self.height_rocket, self.height_layer_below), 380.5)
 
+    def test_GetDensityNow(self):
+        self.width_layer = 18000.0  # [m]
+        self.temp_gradient = 6.5 / 1000.0  # [K/m]
+        self.temp_low = 30.0 + 272.5  # [K]
+        self.pressure_low = 101325.0  # [Pa]
+        self.layer = Layer(self.width_layer, self.temp_gradient, self.temp_low, self.pressure_low)
+        self.height_rocket = 12000.0  # [m]
+        self.height_layer_below = 0.0  # [m]
+        self.assertEqual(self.layer.get_density_now(self.height_rocket, self.height_layer_below), 0.19351737724422885)
+
 
 def main():
     unittest.main()
