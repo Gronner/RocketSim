@@ -77,10 +77,10 @@ class TemperatureTest(unittest.TestCase):
         self.assertEqual(Formula.temperature(0.0, 0.0, 0.0, 0.0), 0.0)
 
     def test_TemperaturePositive(self):
-        self.assertEqual(Formula.temperature(12.0, 3.0, 0.0, 100.0), -3588)
+        self.assertEqual(Formula.temperature(12.0, 3.0, 0.0, 100.0), 312.0)
 
     def test_TemperatureNegative(self):
-        self.assertEqual(Formula.temperature(12.0, -3.0, 0.0, 100.0), 3612.0)
+        self.assertEqual(Formula.temperature(12.0, -3.0, 0.0, 100.0), -288.0)
 
     def test_TemperatureFalseNonZero(self):
         self.assertNotEqual(Formula.temperature(12.0, 3.0, 0.0, -100), 300.0)
