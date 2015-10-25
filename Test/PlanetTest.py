@@ -20,6 +20,21 @@ class GetMassTest(unittest.TestCase):
         self.assertNotEqual(self.planet.get_mass(), 131231.0)
 
 
+class GetRadiusTest(unittest.TestCase):
+
+    def test_GetRadiusZero(self):
+        self.planet = Planet(0.0, 0.0, 0.0)
+        self.assertEqual(self.planet.get_radius(), 0.0)
+
+    def test_GetRadiusNonZero(self):
+        self.planet = Planet(0.0, 6000.0, 0.0)
+        self.assertEqual(self.planet.get_radius(), 6000.0)
+
+    def test_GetRadiusFalseNonZero(self):
+        self.planet = Planet(0.0, 6000.0, 0.0)
+        self.assertNotEqual(self.planet.get_radius(), 0.0)
+
+
 def main():
     unittest.main()
 
