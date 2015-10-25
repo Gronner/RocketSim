@@ -18,3 +18,10 @@ class GetMassTest(unittest.TestCase):
     def test_GetMassFalseNonZero(self):
         self.planet = Planet(6000.0, 100000000.0, (0, 0))
         self.assertEqual(self.planet.get_mass(), 131231.0)
+
+
+def main():
+    unittest.main()
+
+if __name__ == "__main__":
+    main()
