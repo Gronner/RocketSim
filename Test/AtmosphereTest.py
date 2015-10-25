@@ -68,3 +68,11 @@ class GetLayerTest(unittest.TestCase):
         self.atmosphere.add_layer(self.layer_one)
         self.atmosphere.add_layer(self.layer_two)
         self.assertEqual(self.atmosphere.get_layer(self.height_rocket), self.layer_one)
+
+
+def main():
+    unittest.main()
+
+
+if __name__ == "__main__":
+    main()
