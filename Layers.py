@@ -85,3 +85,14 @@ class Layer(object):
         :return: Temperature at the current height in the layer (Double) [K]
         """
         return Formula.temperature(self.temp_low, self.temp_gradient, height_layer_below, height_rocket)
+
+    def get_density_now(self, height_rocket, height_layer_below):
+        """
+        Calculates the density of the medium at the height the rocket is currently in
+        :param height_rocket: Height of the rocket above the planets surface (Double)
+        :param height_layer_below: Accumulated height of the atmospheric layers beneath the current layer (Double)
+        :return: Density of the medium the rocket is in at a given height (Double) [kg/m^3]
+        """
+        temperature_now = self.get_temperature_now(height_rocket, height_layer_below)
+        pressure_now = self.get_pressure_now(height_rocket, height_layer_below)
+        return Formula.density(pressure_now, temperature_now)
