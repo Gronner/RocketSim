@@ -70,9 +70,18 @@ class Layer(object):
 
     def get_pressure_now(self, height_rocket, height_layer_below):
         """
-        Calculates the pressure at the height the rocket currently is
+        Calculates the pressure at the height the rocket currently is in
         :param height_rocket: Height of the rocket above the planets surface (Double)
         :param height_layer_below: Accumulated height of the atmospheric layers beneath the current layer (Double)
         :return: Pressure at the current height in the layer (Double) [Pa]
         """
         return Formula.pressure(self.pressure_low, self.temp_gradient, height_rocket, height_layer_below, self.temp_low)
+
+    def get_temperature_now(self, height_rocket, height_layer_below):
+        """
+        Calculates the temperature at the height the rocket currently is in
+        :param height_rocket: Height of the rocket above the planets surface (Double)
+        :param height_layer_below: Accumulated height of the atmospheric layers beneath the current layer (Double)
+        :return: Temperature at the current height in the layer (Double) [K]
+        """
+        return Formula.temperature(self.temp_low, self.temp_gradient, height_layer_below, height_rocket)
