@@ -74,6 +74,29 @@ class GetLayerTest(unittest.TestCase):
         self.assertEqual(self.atmosphere.get_layer(self.height_rocket), self.layer_one)
 
 
+class CalcHeightBelowTest(unittest.TestCase):
+
+    def test_CalcHeightBelowNoLayer(self):
+        self.atmosphere = Atmosphere()
+        self.layer_index = 1
+        with self.assertRaises(IndexError):
+            self.atmosphere.calc_height_below(self.layer_index)
+
+    def test_CalcHeightBelowOneLayer(self):
+        self.atmosphere = Atmosphere()
+        self.layer_one = Layer(10000.0, 0.0, 0.0, 0.0)
+        self.atmosphere.add_layer(self.layer_one)
+        self.assertEqual(self.atmosphere.calc_height_below(0), 0.0)
+
+    def test_CalcHeightBelowNLayer(self):
+        self.atmosphere = Atmosphere()
+        self.layer_one = Layer(10000.0, 0.0, 0.0, 0.0)
+        self.layer_two = Layer(10000.0, 0.0, 0.0, 0.0)
+        self.atmosphere.add_layer(self.layer_one)
+        self.atmosphere.add_layer(self.layer_two)
+        self.assertEqual(self.atmosphere.calc_height_below(1), 10000.0)
+
+
 def main():
     unittest.main()
 
