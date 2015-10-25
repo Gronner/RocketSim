@@ -1,3 +1,8 @@
+"""
+Author:         Felix Braeunling
+Description:    This class is used to describe different layers that make up an atmosphere.
+"""
+
 import Formula
 
 
