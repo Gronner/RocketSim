@@ -24,6 +24,9 @@ class WidthTest(unittest.TestCase):
         self.layer_set.set_width(self.width_layer)
         self.assertEqual(self.layer_set.get_width(), self.width_layer)
 
+
+class TempGradientTest(unittest.TestCase):
+
     def test_GetTempGradient(self):
         self.width_layer = 18000.0  # [m]
         self.temp_gradient = 6.5 / 1000.0  # [K/m]
@@ -40,6 +43,9 @@ class WidthTest(unittest.TestCase):
         self.layer_set = Layer(0.0, 0.0, 0.0, 0.0)
         self.layer_set.set_temp_gradient(self.temp_gradient)
         self.assertEqual(self.layer_set.get_temp_gradient(), self.temp_gradient)
+
+
+class TempLowTest(unittest.TestCase):
 
     def test_GetTempLow(self):
         self.width_layer = 18000.0  # [m]
@@ -58,6 +64,9 @@ class WidthTest(unittest.TestCase):
         self.layer_set.set_temp_low(self.temp_low)
         self.assertEqual(self.layer_set.get_temp_low(), self.temp_low)
 
+
+class PressureLowTest(unittest.TestCase):
+
     def test_GetPressureLow(self):
         self.width_layer = 18000.0  # [m]
         self.temp_gradient = 6.5 / 1000.0  # [K/m]
@@ -74,6 +83,9 @@ class WidthTest(unittest.TestCase):
         self.layer_set = Layer(0.0, 0.0, 0.0, 0.0)
         self.layer_set.set_pressure_low(self.pressure_low)
         self.assertEqual(self.layer_set.get_pressure_low(), self.pressure_low)
+
+
+class CalculationTest(unittest.TestCase):
 
     def test_GetPressureNow(self):
         self.width_layer = 18000.0  # [m]
