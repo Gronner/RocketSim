@@ -11,7 +11,7 @@ class Planet(object):
         Setup of an object that describes a planet (or celestial body)
         :param mass_planet: Mass of the planet (Double) [kg]
         :param radius_planet: Radius of the planet (center to surface) (Double) [m]
-        :param pos_planet: Position of the planet as x and y Coordinates (Tuple -> (x, y))
+        :param pos_planet: Position of the planets center of mass as x and y Coordinates (Tuple -> (Integer, Integer))
         """
         self.mass_planet = mass_planet
         self.radius_planet = radius_planet
