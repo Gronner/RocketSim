@@ -18,15 +18,17 @@ class AddLayerTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.atmosphere.add_layer("test")
 
-    def test_AddLayerTest(self):
+    def test_AddLayerOneTest(self):
         self.atmosphere = Atmosphere()
         self.layer = Layer(0.0, 0.0, 0.0, 0.0)
         try:
             self.atmosphere.add_layer(self.layer)
         except Exception, e:
             self.fail(e)
+        self.assertTrue(self.layer in self.atmosphere.get_layers())
+        self.assertTrue(self.layer == self.atmosphere.layers[0])
 
-    def test_AddLayerLayer(self):
+    def test_AddLayerTwoLayer(self):
         self.atmosphere = Atmosphere()
         self.layer_one = Layer(0.0, 0.0, 0.0, 0.0)
         self.layer_two = Layer(1.0, 1.0, 1.0, 1.0)
@@ -35,6 +37,8 @@ class AddLayerTest(unittest.TestCase):
             self.atmosphere.add_layer(self.layer_two)
         except Exception, e:
             self.fail(e)
+        self.assertTrue(self.layer_one in self.atmosphere.get_layers() and self.layer_two in self.atmosphere.get_layers())
+        self.assertTrue(self.layer_one == self.atmosphere.layers[0] and self.layer_two == self.atmosphere.layers[1])
 
 
 class GetLayerTest(unittest.TestCase):
