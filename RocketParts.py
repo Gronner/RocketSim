@@ -13,7 +13,7 @@ class RocketPart(object):
         """
         Sets up a rocket part with value validation
         :param mass_part: Mass of the part (Non negative Double) [kg]
-        :param surface_part: Surface of the part (Non negative Double) [m^2]
+        :param surface_part: Surface area of the part (Non negative Double) [m^2]
         """
         if mass_part < 0:
             raise ValueError
@@ -31,3 +31,11 @@ class RocketPart(object):
         if self.mass_part < 0:
             raise ValueError
         return self.mass_part
+
+    def get_surface(self):
+        """
+        :return: Surface area of the part (Double) [m^2]
+        """
+        if self.surface_part < 0:
+            raise ValueError
+        return self.surface_part
