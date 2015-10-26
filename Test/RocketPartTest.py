@@ -27,8 +27,9 @@ class InitRocketPartTest(unittest.TestCase):
 
     def test_InitRockPartFalseNonZero(self):
         self.rocket_part = RocketPart(100.2, 234.50)
-        self.assertEqual(self.rocket_part.mass_part, 235.2)
-        self.assertEqual(self.rocket_part.surface_part, 1234.5)
+        self.assertNotEqual(self.rocket_part.mass_part, 235.2)
+        self.assertNotEqual(self.rocket_part.surface_part, 1234.5)
+
 
 def main():
     unittest.main()
