@@ -12,8 +12,9 @@ class RocketPart(object):
     def __init__(self, mass_part, surface_part, drag_coefficient_part):
         """
         Sets up a rocket part with value validation
-        :param mass_part: Mass of the part (Non negative Double) [kg]
-        :param surface_part: Surface area of the part (Non negative Double) [m^2]
+        :param mass_part: Mass of the part (Not negative Double) [kg]
+        :param surface_part: Surface area of the part (Not negative Double) [m^2]
+        :param drag_coefficient_part: Drag coefficient of the part (Not negative Double) [1]
         """
         if mass_part < 0:
             raise ValueError
@@ -30,7 +31,7 @@ class RocketPart(object):
 
     def get_mass(self):
         """
-        :return: Mass of the part (Double) [kg]
+        :return: Mass of the part (Not Negative Double) [kg]
         """
         if self.mass_part < 0:
             raise ValueError
@@ -38,8 +39,16 @@ class RocketPart(object):
 
     def get_surface(self):
         """
-        :return: Surface area of the part (Double) [m^2]
+        :return: Surface area of the part (Not Negative Double) [m^2]
         """
         if self.surface_part < 0:
             raise ValueError
         return self.surface_part
+
+    def get_drag_coefficient(self):
+        """
+        :return: Drag coefficient of the part (Not Negative Double) [1]
+        """
+        if self.drag_coefficient_part < 0:
+            raise ValueError
+        return self.drag_coefficient_part
