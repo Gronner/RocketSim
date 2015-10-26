@@ -17,7 +17,14 @@ class RocketPart(object):
         """
         if mass_part < 0:
             raise ValueError
-        self.mass_part = mass_part
+        else:
+            self.mass_part = mass_part
         if surface_part < 0:
             raise ValueError
-        self.surface_part = surface_part
+        else:
+            self.surface_part = surface_part
+
+    def get_mass(self):
+        if self.mass_part < 0:
+            raise ValueError
+        return self.mass_part
