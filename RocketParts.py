@@ -6,10 +6,10 @@ Description:    Those classes are used to describe rocket parts in general and d
 
 class RocketPart(object):
     """
-    Base class for rocket parts with their attributes mass_part and surface_part
+    Base class for rocket parts with their attributes mass_part, surface_part and drag_coefficient_part
     """
 
-    def __init__(self, mass_part, surface_part):
+    def __init__(self, mass_part, surface_part, drag_coefficient_part):
         """
         Sets up a rocket part with value validation
         :param mass_part: Mass of the part (Non negative Double) [kg]
@@ -23,6 +23,10 @@ class RocketPart(object):
             raise ValueError
         else:
             self.surface_part = surface_part
+        if drag_coefficient_part < 0:
+            raise ValueError
+        else:
+            self.drag_coefficient_part = drag_coefficient_part
 
     def get_mass(self):
         """
