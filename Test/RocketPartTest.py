@@ -79,6 +79,27 @@ class GetSurfaceTest(unittest.TestCase):
         self.assertNotEqual(self.rocket_part.get_surface(), 1000.0)
 
 
+class GetDragCoefficientTest(unittest.TestCase):
+
+    def test_GetSurfaceZero(self):
+        self.rocket_part = RocketPart(0.0, 0.0, 0.0)
+        self.assertEqual(self.rocket_part.get_drag_coefficient(), 0.0)
+
+    def test_GetSurfacePositive(self):
+        self.rocket_part = RocketPart(1000.2, 123.0, 543.2)
+        self.assertEqual(self.rocket_part.get_drag_coefficient(), 543.2)
+
+    def test_GetSurfaceNegative(self):
+        with self.assertRaises(ValueError):
+            self.rocket_part = RocketPart(0.0, 0.0, 543.2)
+            self.rocket_part.drag_coefficient_part = -10000
+            self.rocket_part.get_drag_coefficient()
+
+    def test_GetMassFalseNonZero(self):
+        self.rocket_part = RocketPart(1312.0, 123.0, 543.2)
+        self.assertNotEqual(self.rocket_part.get_drag_coefficient(), 1000.0)
+
+
 def main():
     unittest.main()
 
