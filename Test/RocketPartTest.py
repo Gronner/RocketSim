@@ -100,6 +100,29 @@ class GetDragCoefficientTest(unittest.TestCase):
         self.assertNotEqual(self.rocket_part.get_drag_coefficient(), 1000.0)
 
 
+class SetMassTest(unittest.TestCase):
+
+    def test_SetMassZero(self):
+        self.rocket_part = RocketPart(100.0, 0.0, 0.0)
+        self.rocket_part.set_mass(0.0)
+        self.assertEqual(self.rocket_part.get_mass(), 0.0)
+
+    def test_SetMassPositive(self):
+        self.rocket_part = RocketPart(100.0, 0.0, 0.0)
+        self.rocket_part.set_mass(3000.2)
+        self.assertEqual(self.rocket_part.get_mass(), 3000.2)
+
+    def test_SetMassNegative(self):
+        self.rocket_part = RocketPart(100.0, 0.0, 0.0)
+        with self.assertRaises(ValueError):
+            self.rocket_part.set_mass(-1000.2)
+
+    def test_SetMassFalseNonZero(self):
+        self.rocket_part = RocketPart(1234.0, 0.0, 0.0)
+        self.rocket_part.set_mass(567.8)
+        self.assertNotEqual(self.rocket_part.get_mass(), 1234.0)
+
+
 def main():
     unittest.main()
 
