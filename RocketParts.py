@@ -25,6 +25,9 @@ class RocketPart(object):
             self.surface_part = surface_part
 
     def get_mass(self):
+        """
+        :return: Mass of the part (Double) [kg]
+        """
         if self.mass_part < 0:
             raise ValueError
         return self.mass_part
