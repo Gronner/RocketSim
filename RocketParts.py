@@ -52,3 +52,12 @@ class RocketPart(object):
         if self.drag_coefficient_part < 0:
             raise ValueError
         return self.drag_coefficient_part
+
+    def set_mass(self, new_mass_part):
+        """
+        Changes the mass of the object and validates the value
+        :param new_mass_part: New Mass of the part (Not negative Double) [kg]
+        """
+        if new_mass_part < 0:
+            raise ValueError
+        self.mass_part = new_mass_part
