@@ -31,6 +31,27 @@ class InitRocketPartTest(unittest.TestCase):
         self.assertNotEqual(self.rocket_part.surface_part, 1234.5)
 
 
+class GetMassTest(unittest.TestCase):
+
+    def test_GetMassZero(self):
+        self.rocket_part = RocketPart(0.0, 0.0)
+        self.assertEqual(self.rocket_part.get_mass(), 0.0)
+
+    def test_GetMassPositive(self):
+        self.rocket_part = RocketPart(1000.2, 123.0)
+        self.assertEqual(self.rocket_part.get_mass(), 1000.2)
+
+    def test_GetMassNegative(self):
+        with self.assertRaises(ValueError):
+            self.rocket_part = RocketPart(0.0, 123.0)
+            self.rocket_part.mass_part = -10000
+            self.rocket_part.get_mass()
+
+    def test_GetMassFalseNonZero(self):
+        self.rocket_part = RocketPart(1312.0, 123.0)
+        self.assertNotEqual(self.rocket_part.get_mass(), 1000.0)
+
+
 def main():
     unittest.main()
 

@@ -3,6 +3,7 @@ Author:         Felix Braeunling
 Description:    Those classes are used to describe rocket parts in general and different variants of rocket parts
 """
 
+
 class RocketPart(object):
     """
     Base class for rocket parts with their attributes mass_part and surface_part
