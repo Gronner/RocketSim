@@ -84,7 +84,7 @@ class Tank(RocketPart):
             raise ValueError
         else:
             self.mass_propellant = mass_propellant
-        if thrust_tank < 0:
+        if thrust_tank < 0 or thrust_tank > 1:
             raise ValueError
         else:
             self.thrust_tank = thrust_tank
@@ -97,6 +97,16 @@ class Tank(RocketPart):
         """
         :return: Thrust level of the engine, scales the mass of propellant flow (Double) [%]
         """
-        if self.thrust_tank < 0:
+        if self.thrust_tank < 0 or self.thrust_tank > 1:
             raise ValueError
         return self.thrust_tank
+
+    def set_thrust(self, new_thrust_tank):
+        """
+        Allows to change the thrust level of the engine
+        :param new_thrust_tank: New thrust level of the engine
+        """
+        if new_thrust_tank < 0 or new_thrust_tank > 1:
+            raise ValueError
+        else:
+            self.thrust_tank = new_thrust_tank
