@@ -140,12 +140,12 @@ class InitTankTest(unittest.TestCase):
         self.assertEqual(self.tank.velocity_exhaust_tank, 0.0)
 
     def test_InitTankPositive(self):
-        self.tank = Tank(130000.0, 134.0, 0.34, 100000.0, 666.0, 369.2)
+        self.tank = Tank(130000.0, 134.0, 0.34, 100000.0, 0.23, 369.2)
         self.assertEqual(self.tank.mass_part, 130000.0)
         self.assertEqual(self.tank.surface_part, 134.0)
         self.assertEqual(self.tank.drag_coefficient_part, 0.34)
         self.assertEqual(self.tank.mass_propellant, 100000.0)
-        self.assertEqual(self.tank.thrust_tank, 666.0)
+        self.assertEqual(self.tank.thrust_tank, 0.23)
         self.assertEqual(self.tank.velocity_exhaust_tank, 369.2)
 
     def test_InitTankMassNegative(self):
@@ -167,6 +167,10 @@ class InitTankTest(unittest.TestCase):
     def test_InitTankThrustNegative(self):
         with self.assertRaises(ValueError):
             self.tank = Tank(0.0, 0.0, 0.0, 0.0, -20000.0, 0.0)
+
+    def test_InitTankThrustAboveOne(self):
+        with self.assertRaises(ValueError):
+            self.tank = Tank(0.0, 0.0, 0.0, 0.0, 20000.0, 0.0)
 
     def test_InitTankVeNegative(self):
         with self.assertRaises(ValueError):
@@ -201,6 +205,34 @@ class GetThrustTankTest(unittest.TestCase):
     def test_GetThrustFalseNonZero(self):
         self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, 2342.2, 1002.2)
         self.assertNotEqual(self.tank.get_thrust, 10003.2)
+
+
+class SetThrustTankTest(unittest.TestCase):
+
+    def test_SetThrustZero(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 10000.0, 0.0)
+        self.tank.set_thrust(0.0)
+        self.assertEqual(self.tank.get_thrust(), 0.0)
+
+    def test_SetThrustPositiveSubOne(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 10000.0, 0.0)
+        self.tank.set_thrust(0.23)
+        self.assertEqual(self.get_thrust(), 0.23)
+
+    def test_SetThrustPositiveAboveOne(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 10000.0, 0.0)
+        with self.assertRaises(ValueError):
+            self.tank.set_thrust(1.23)
+
+    def test_SetThrustNegative(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 10000.0, 0.0)
+        with self.assertRaises():
+            self.tank.set_thrust(-0.23)
+
+    def test_SetThrustFalseNonZero(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 10000.0, 0.0)
+        self.tank.set_thrust(0.75)
+        self.assertNotEqual(self.tank.get_thrust(), 0.23)
 
 
 def main():
