@@ -190,10 +190,11 @@ class GetThrustTankTest(unittest.TestCase):
 
     def test_GetThrustPositive(self):
         self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, 10003.2, 1002.2)
-        self.assertEqual(self.tank.get_thurst(), 10003.2)
+        self.assertEqual(self.tank.get_thrust(), 10003.2)
 
     def test_GetThrustNegative(self):
-        self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, -10003.2, 1002.2)
+        self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, 10003.2, 1002.2)
+        self.tank.thrust_tank = -10003.2
         with self.assertRaises(ValueError):
             self.tank.get_thrust()
 
