@@ -92,3 +92,11 @@ class Tank(RocketPart):
             raise ValueError
         else:
             self.velocity_exhaust_tank = velocity_exhaust_tank
+
+    def get_thrust(self):
+        """
+        :return: Thrust level of the engine, scales the mass of propellant flow (Double) [%]
+        """
+        if self.thrust_tank < 0:
+            raise ValueError
+        return self.thrust_tank
