@@ -192,9 +192,15 @@ class GetThrustTankTest(unittest.TestCase):
         self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         self.assertEqual(self.tank.get_thrust(), 0.0)
 
-    def test_GetThrustPositive(self):
+    def test_GetThrustPositiveSubZero(self):
         self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, 0.23, 1002.2)
         self.assertEqual(self.tank.get_thrust(), 0.23)
+
+    def test_GetThrustPositiveAboveZero(self):
+        self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, 0.23, 1002.2)
+        self.tank.thrust_tank = 1.23
+        with self.assertRaises(ValueError):
+            self.tank.get_thrust()
 
     def test_GetThrustNegative(self):
         self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, 0.23, 1002.2)
@@ -217,7 +223,7 @@ class SetThrustTankTest(unittest.TestCase):
     def test_SetThrustPositiveSubOne(self):
         self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.85, 0.0)
         self.tank.set_thrust(0.23)
-        self.assertEqual(self.get_thrust(), 0.23)
+        self.assertEqual(self.tank.set_thrust, 0.23)
 
     def test_SetThrustPositiveAboveOne(self):
         self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.85, 0.0)
