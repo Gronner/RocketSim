@@ -61,3 +61,34 @@ class RocketPart(object):
         if new_mass_part < 0:
             raise ValueError
         self.mass_part = new_mass_part
+
+
+class Tank(RocketPart):
+    """
+    Class to describe rocket tanks with connected engine
+    """
+
+    def __init__(self, mass_part, surface_part, drag_coefficient_part, mass_propellant, thrust_tank, isp_tank):
+        """
+        Setup for a tank with value validation
+        :param mass_part:
+        :param surface_part:
+        :param drag_coefficient_part:
+        :param mass_propellant:
+        :param thrust_tank:
+        :param isp_tank:
+        :return:
+        """
+        RocketPart.__init__(self, mass_part, surface_part, drag_coefficient_part)
+        if mass_propellant < 0:
+            raise ValueError
+        else:
+            self.mass_propellant = mass_propellant
+        if thrust_tank < 0:
+            raise ValueError
+        else:
+            self.thrust_tank = thrust_tank
+        if isp_tank < 0:
+            raise ValueError
+        else:
+            self.isp_tank = isp_tank
