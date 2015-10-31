@@ -110,3 +110,12 @@ class Tank(RocketPart):
             raise ValueError
         else:
             self.thrust_tank = new_thrust_tank
+
+    def get_velocity_exhaust(self):
+        """
+        :return: Velocity of the propellant exhaust at the nozzle (Double) [m/s]
+        """
+        if self.velocity_exhaust_tank < 0:
+            raise ValueError
+        else:
+            return self.velocity_exhaust_tank
