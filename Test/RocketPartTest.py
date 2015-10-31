@@ -137,7 +137,7 @@ class InitTankTest(unittest.TestCase):
         self.assertEqual(self.tank.drag_coefficient_part, 0.0)
         self.assertEqual(self.tank.mass_propellant, 0.0)
         self.assertEqual(self.tank.thrust_tank, 0.0)
-        self.assertEqual(self.tank.isp_tank, 0.0)
+        self.assertEqual(self.tank.velocity_exhaust_tank, 0.0)
 
     def test_InitTankPositive(self):
         self.tank = Tank(130000.0, 134.0, 0.34, 100000.0, 666.0, 369.2)
@@ -146,7 +146,7 @@ class InitTankTest(unittest.TestCase):
         self.assertEqual(self.tank.drag_coefficient_part, 0.34)
         self.assertEqual(self.tank.mass_propellant, 100000.0)
         self.assertEqual(self.tank.thrust_tank, 666.0)
-        self.assertEqual(self.tank.isp_tank, 369.2)
+        self.assertEqual(self.tank.velocity_exhaust_tank, 369.2)
 
     def test_InitTankMassNegative(self):
         with self.assertRaises(ValueError):
@@ -168,7 +168,7 @@ class InitTankTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.tank = Tank(0.0, 0.0, 0.0, 0.0, -20000.0, 0.0)
 
-    def test_InitTankISPNegative(self):
+    def test_InitTankVeNegative(self):
         with self.assertRaises(ValueError):
             self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, -6450.0)
 
@@ -179,7 +179,7 @@ class InitTankTest(unittest.TestCase):
         self.assertNotEqual(self.tank.surface_part, 0.34)
         self.assertNotEqual(self.tank.mass_propellant, 100000.0)
         self.assertNotEqual(self.tank.thrust_tank, 666.0)
-        self.assertNotEqual(self.tank.isp_tank, 369.2)
+        self.assertNotEqual(self.tank.velocity_exhaust_tank, 369.2)
 
 
 def main():
