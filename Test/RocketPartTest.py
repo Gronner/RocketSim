@@ -182,6 +182,26 @@ class InitTankTest(unittest.TestCase):
         self.assertNotEqual(self.tank.velocity_exhaust_tank, 369.2)
 
 
+class GetThrustTankTest(unittest.TestCase):
+
+    def test_GetThrustZero(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        self.assertEqual(self.tank.get_thrust(), 0.0)
+
+    def test_GetThrustPositive(self):
+        self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, 10003.2, 1002.2)
+        self.assertEqual(self.tank.get_thurst(), 10003.2)
+
+    def test_GetThrustNegative(self):
+        self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, -10003.2, 1002.2)
+        with self.assertRaises(ValueError):
+            self.tank.get_thrust()
+
+    def test_GetThrustFalseNonZero(self):
+        self.tank = Tank(15.0, 2341.2, 94830.1, 0.23, 2342.2, 1002.2)
+        self.assertNotEqual(self.tank.get_thrust, 10003.2)
+
+
 def main():
     unittest.main()
 
