@@ -262,6 +262,35 @@ class GetVelocityExhaustTest(unittest.TestCase):
         self.assertNotEqual(self.tank.get_velocity_exhaust(), 123.0)
 
 
+class GetMassTest(unittest.TestCase):
+
+    def test_GetMassZero(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        self.assertEqual(self.tank.get_mass(), 0.0)
+
+    def test_GetMassPartZero(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 1000.2, 0.0, 0.0)
+        self.assertEqual(self.tank.get_mass(), 1000.2)
+
+    def test_GetMassPropZero(self):
+        self.tank = Tank(123.4, 0.0, 0.0, 0.0, 0.0, 0.0)
+        self.assertEqual(self.tank.get_mass(), 123.4)
+
+    def test_GetMassPositive(self):
+        self.tank = Tank(123.4, 0.0, 0.0, 1000.2, 0.0, 0.0)
+        self.assertEqual(self.tank.get_mass(), 123.4+1000.2)
+
+    def test_GetMassNegative(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        self.tank.mass_propellant = -100.2
+        with self.assertRaises(ValueError):
+            self.tank.get_mass()
+
+    def test_GetMassFalseNonZero(self):
+        self.tank = Tank(567.8, 0.0, 0.0, 901.3, 0.0, 0.0)
+        self.assertNotEqual(self.tank.get_mass(), 123.4+1000.2)
+
+
 def main():
     unittest.main()
 
