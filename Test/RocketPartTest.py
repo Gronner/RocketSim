@@ -300,7 +300,7 @@ class SetMassPropellantTest(unittest.TestCase):
 
     def test_SetMassPropellantPositive(self):
         self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-        self.tank.set_mass_propellat(999.0)
+        self.tank.set_mass_propellant(999.0)
         self.assertEqual(self.tank.mass_propellant, 999.0)
 
     def test_SetMassPropellantNegative(self):
