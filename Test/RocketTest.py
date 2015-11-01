@@ -42,6 +42,13 @@ class InitRocketTest(unittest.TestCase):
         self.assertNotEqual(self.rocket.pos, [12.0, 13.2])
         self.assertNotEqual(self.rocket.velocity, [192.30, 1235.2])
         self.assertNotEqual(self.rocket.acceleration, [992.0, 882.0])
-        self.assertNotEqual(self.rocket.mass, 0.0)
-        self.assertNotEqual(self.rocket.surface, 0.0)
-        self.assertNotEqual(self.rocket.angle, 0.0)
+        self.assertNotEqual(self.rocket.mass, 10.0)
+        self.assertNotEqual(self.rocket.surface, 20.0)
+        self.assertNotEqual(self.rocket.angle, 30.0)
+
+
+def main():
+    unittest.main()
+
+if __name__ == "__main__":
+    main()
