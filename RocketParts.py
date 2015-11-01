@@ -130,3 +130,13 @@ class Tank(RocketPart):
             raise ValueError
         else:
             return mass_fueled
+
+    def set_mass_propellant(self, new_mass_propellant):
+        """
+        Allows to change the mass of the propellant
+        :param new_mass_propellant: New mass of the propellant (Double
+        """
+        if new_mass_propellant < 0:
+            raise ValueError
+        else:
+            self.mass_propellant = new_mass_propellant
