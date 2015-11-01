@@ -119,3 +119,14 @@ class Tank(RocketPart):
             raise ValueError
         else:
             return self.velocity_exhaust_tank
+
+    def get_mass(self):
+        """
+        Calculates the mass of the part from the sum of propellant and part mass
+        :return: Mass of the part filled with propellant (Double) [kg]
+        """
+        mass_fueled = self.mass_propellant + self.mass_part
+        if mass_fueled < 0:
+            raise ValueError
+        else:
+            return mass_fueled
