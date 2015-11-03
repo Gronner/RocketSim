@@ -108,27 +108,29 @@ class SetPosTest(unittest.TestCase):
 
     def test_SetPosZero(self):
         self.rocket = Rocket([13.3, 222222.2], [0.0, 0.0], [0.0, 0.0])
-        new_pos = [0.0, 0.0]
-        self.rocket.set_pos(new_pos)
-        self.assertEqual(self.rocket.get_pos(), new_pos)
+        self.rocket.set_pos(0.0, 0.0)
+        self.assertEqual(self.rocket.get_pos(), [0.0, 0.0])
 
     def test_SetPosPositive(self):
         self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
-        new_pos = [123.4, 5678.9]
-        self.rocket.set_pos(new_pos)
-        self.assertEqual(self.rocket.get_pos(), new_pos)
+        new_x = 123.4
+        new_y = 5678.9
+        self.rocket.set_pos(new_x, new_y)
+        self.assertEqual(self.rocket.get_pos(), [new_x, new_y])
 
     def test_SetPosNegative(self):
         self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
-        new_pos = [-123.4, -5678.9]
-        self.rocket.set_pos(new_pos)
-        self.assertEqual(self.rocket.get_pos(), new_pos)
+        new_x = 123.4
+        new_y = 5678.9
+        self.rocket.set_pos(-1*new_x, -1*new_y)
+        self.assertEqual(self.rocket.get_pos(), [new_x, new_y])
 
     def test_SetPosFalseNonZero(self):
         self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
-        new_pos = [432.1, 9876.5]
-        self.rocket.set_pos(new_pos)
-        self.assertNotEqual(self.rocket.get_pos(), [0.0, 0.0])
+        new_x = 123.4
+        new_y = 5678.9
+        self.rocket.set_pos(432.1 , 9876.5)
+        self.assertNotEqual(self.rocket.get_pos(), [new_x, new_y])
 
 
 def main():
