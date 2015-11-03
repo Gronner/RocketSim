@@ -26,12 +26,18 @@ class Rocket(object):
 
     def get_pos(self):
         """
-        :return: The position of the rocket as x and y coordinates (Tuple -> (Double, Double) ([m], [m])
+        :return: The position of the rocket as x and y coordinates (Tuple -> (Double, Double)) ([m], [m])
         """
         return self.pos
 
     def get_velocity(self):
         """
-        :return: The velocity of the rocket in x and y direction (Tuple -> (Double, Double) ([m/s], [m/s]
+        :return: The velocity of the rocket in x and y direction (Tuple -> (Double, Double)) ([m/s], [m/s])
         """
         return self.velocity
+
+    def get_acceleration(self):
+        """
+        :return: The acceleration of the rocket in x and y direction (Tuple -> (Double, Double)) ([m/s^2], [m/s^2])
+        """
+        return self.acceleration
