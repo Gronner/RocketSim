@@ -107,7 +107,18 @@ class Rocket(object):
             return self.surface
 
     def set_surface(self):
+        """
+        Calculates the surface of the rocket depending on the surface of the parts
+        and changes the attribute surface accordingly
+        """
         surface_sum = 0.0
         for part in self.rocket_parts:
             surface_sum += part.get_surface()
         self.surface = surface_sum
+
+    def get_angle(self):
+        """
+        Calculates the angle of the rocket to the horizon
+        :return Angle of the rocket (Double) [grad]
+        """
+        return self.angle
