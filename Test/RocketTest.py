@@ -308,6 +308,43 @@ class GetSurfaceTest(unittest.TestCase):
         self.assertNotEqual(self.rocket.get_surface(), 123.4)
 
 
+class SetSurfaceTest(unittest.TestCase):
+
+    def test_SetSurfaceNoParts(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.set_surface()
+        self.assertEqual(self.rocket.get_surface(), 0.0)
+
+    def test_SetSurfaceOnePart(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1000.0, 2000.0, 0.34)
+        self.rocket.append_part(self.part_one)
+        self.rocket.set_surface()
+        self.assertEqual(self.rocket.surface(), 2000.0)
+
+    def test_SetSurfaceNParts(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1000.0, 2000.0, 0.34)
+        self.tank_one = Tank(1000.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.rocket.append_part(self.part_one)
+        self.rocket.set_surface()
+        self.assertEqual(self.rocket.get_surface(), 2000.0)
+        self.rocket.append_part(self.tank_one)
+        self.rocket.set_surface()
+        self.assertEqual(self.rocket.get_surface(), 4000.0)
+
+    def test_SetSurfaceNPartsFalseNonZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1234.5, 3000.0, 0.34)
+        self.tank_one = Tank(6789.0, 3000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.rocket.append_part(self.part_one)
+        self.rocket.set_surface()
+        self.assertNotEqual(self.rocket.get_surface(), 2000.0)
+        self.rocket.append_part(self.tank_one)
+        self.rocket.set_surface()
+        self.assertNotEqual(self.rocket.get_surface(), 4000.0)
+
+
 def main():
     unittest.main()
 
