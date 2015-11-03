@@ -128,3 +128,12 @@ class Rocket(object):
         Allows to set the angle of the rocket to the horizon
         """
         self.angle = new_angle
+
+    def decouple(self):
+        """
+        Decouples the last added part in Rocket.rocket_parts
+        """
+        if len(self.rocket_parts) == 1:
+            pass
+        else:
+            self.rocket_parts.pop()
