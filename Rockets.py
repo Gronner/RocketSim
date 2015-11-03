@@ -74,3 +74,16 @@ class Rocket(object):
             raise ValueError
         else:
             return self.mass
+
+    def append_part(self, new_part):
+        """
+        Adds a new part to the end of the Rocket, first part always has to be a RocketPart!
+        :param new_part: Part to be added at the end of the rocket (RocketPart or Subclass)
+        """
+        if not issubclass(type(new_part), RocketPart):
+            print "Part has to be of type RocketPart or Subclass"
+            raise ValueError
+        if self.rocket_parts == [] and type(new_part) != RocketPart:
+            print "First part has to be of type RocketPart (e.g. nose of the rocket)"
+            raise ValueError
+        self.rocket_parts.append(new_part)
