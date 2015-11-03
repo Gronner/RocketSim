@@ -122,3 +122,9 @@ class Rocket(object):
         :return Angle of the rocket (Double) [grad]
         """
         return self.angle
+
+    def set_angle(self, new_angle):
+        """
+        Allows to set the angle of the rocket to the horizon
+        """
+        self.angle = new_angle
