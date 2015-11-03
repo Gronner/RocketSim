@@ -85,6 +85,25 @@ class GetVelocityTest(unittest.TestCase):
         self.assertNotEqual(self.rocket.get_velocity(), [13.3, 222222.2])
 
 
+class GetAccelerationTest(unittest.TestCase):
+
+    def test_GetAccelerationZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.assertEqual(self.rocket.get_acceleration(), [0.0, 0.0])
+
+    def test_GetAccelerationPositive(self):
+        self.rocket = self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [13.3, 222222.2])
+        self.assertEqual(self.rocket.get_acceleration(), [13.3, 222222.2])
+
+    def test_GetAccelerationNegative(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [-13.3, -222222.2])
+        self.assertEqual(self.rocket.get_acceleration(), [-13.3, -222222.2])
+
+    def test_GetAccelerationFalseNonZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [24.2, 1234.5])
+        self.assertNotEqual(self.rocket.get_acceleration(), [13.3, 222222.2])
+
+
 def main():
     unittest.main()
 
