@@ -345,6 +345,28 @@ class SetSurfaceTest(unittest.TestCase):
         self.assertNotEqual(self.rocket.get_surface(), 4000.0)
 
 
+class GetAngleTest(unittest.TestCase):
+
+    def test_GetAngleZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.assertEqual(self.rocket.get_anlge(), 0.0)
+
+    def test_GetAnglePositive(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.angle = 123.4
+        self.assertEqual(self.rocket.get_angle(), 123.4)
+
+    def test_GetAngleNegative(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.angle = -123.4
+        self.assertEqual(self.rocket.get_angle(), -123.4)
+
+    def test_GetAngleFalseNonZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.angle = 285.2
+        self.assertNotEqual(self.rocket.get_angle(), 123.4)
+
+
 def main():
     unittest.main()
 
