@@ -47,6 +47,25 @@ class InitRocketTest(unittest.TestCase):
         self.assertNotEqual(self.rocket.angle, 30.0)
 
 
+class GetPostTest(unittest.TestCase):
+
+    def test_GetPosZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.assertEqual(self.rocket.get_pos(), [0.0, 0.0])
+
+    def test_GetPosPositive(self):
+        self.rocket = self.rocket = Rocket([13.3, 222222.2], [0.0, 0.0], [0.0, 0.0])
+        self.assertEqual(self.rocket.get_pos(), [13.3, 222222.2])
+
+    def test_GetPosNegative(self):
+        self.rocket = self.rocket = Rocket([-13.3, -222222.2], [0.0, 0.0], [0.0, 0.0])
+        self.assertEqual(self.rocket.get_pos(), [-13.3, -222222.2])
+
+    def test_GetPosFalseNonZero(self):
+        self.rocket = self.rocket = self.rocket = Rocket([24.2, 1234.5], [0.0, 0.0], [0.0, 0.0])
+        self.assertNotEqual(self.rocket.get_pos(), [13.3, 222222.2])
+
+
 def main():
     unittest.main()
 

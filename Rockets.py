@@ -6,6 +6,7 @@ Description:    This class describes the assambled rocket with its position and 
 from RocketParts import RocketPart
 from RocketParts import Tank
 
+
 class Rocket(object):
 
     def __init__(self, pos, velocity, acceleration):
