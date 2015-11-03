@@ -285,6 +285,29 @@ class SetMassTest(unittest.TestCase):
         self.assertNotEqual(self.rocket.get_mass(), 2000.0)
 
 
+class GetSurfaceTest(unittest.TestCase):
+
+    def test_GetSurfaceZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.assertEqual(self.rocket.get_surface(), 0.0)
+
+    def test_GetSurfacePositive(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.surface = 123.4
+        self.assertEqual(self.rocket.get_surface(), 123.4)
+
+    def test_GetSurfaceNegative(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.surface = -123.4
+        with self.assertRaises(ValueError):
+            self.rocket.get_surface()
+
+    def test_GetSurfaceFalseNonZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.surface = 56789.0
+        self.assertNotEqual(self.rocket.get_surface(), 123.4)
+
+
 def main():
     unittest.main()
 
