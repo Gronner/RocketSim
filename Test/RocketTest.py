@@ -214,6 +214,40 @@ class GetMassTest(unittest.TestCase):
         self.assertNotEqual(self.rocket.get_mass(), 123.4)
 
 
+class AppendPartTest(unittest.TestCase):
+
+    def test_AppendPartInt(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        with self.assertRaises(ValueError):
+            self.rocket.append_part(123)
+
+    def test_AppendPartString(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        with self.assertRaises(ValueError):
+            self.rocket.append_part("test")
+
+    def test_AppendPartRocketPartFirst(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1000.0, 2000.0, 0.34)
+        self.rocket.append_part(self.part_one)
+        self.assertEqual(self.rocket.rocket_parts[0], self.part_one)
+
+    def test_AppendPartTankFirst(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.tank_one = Tank(1000.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        with self.assertRaises(ValueError):
+            self.rocket.append_part(self.tank_one)
+
+    def test_AppendPartRocketPartThenTank(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1000.0, 2000.0, 0.34)
+        self.tank_one = Tank(1000.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.rocket.append_part(self.part_one)
+        self.rocket.append_part(self.tank_one)
+        self.assertEqual(self.rocket.rocket_parts[0], self.part_one)
+        self.assertEqual(self.rocket.rocket_parts[1], self.tank_one)
+
+
 def main():
     unittest.main()
 
