@@ -41,3 +41,11 @@ class Rocket(object):
         :return: The acceleration of the rocket in x and y direction (Tuple -> (Double, Double)) ([m/s^2], [m/s^2])
         """
         return self.acceleration
+
+    def set_pos(self, pos_x, pos_y):
+        """
+        Allows to set the position of the rocket as x and y coordinates
+        :param pos_x: X-position of the rocket (Double)
+        :param pos_y: Y-position of the rocket (Double)
+        """
+        self.pos = [pos_x, pos_y]
