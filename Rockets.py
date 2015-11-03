@@ -87,3 +87,12 @@ class Rocket(object):
             print "First part has to be of type RocketPart (e.g. nose of the rocket)"
             raise ValueError
         self.rocket_parts.append(new_part)
+
+    def set_mass(self):
+        """
+        Calculates the mass of the rocket depending on the mass of the parts and changes the attribute mass accordingly
+        """
+        mass_sum = 0.0
+        for part in self.rocket_parts:
+            mass_sum += part.get_mass()
+        self.mass = mass_sum
