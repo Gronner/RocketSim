@@ -123,7 +123,7 @@ class SetPosTest(unittest.TestCase):
         new_x = 123.4
         new_y = 5678.9
         self.rocket.set_pos(-1*new_x, -1*new_y)
-        self.assertEqual(self.rocket.get_pos(), [new_x, new_y])
+        self.assertEqual(self.rocket.get_pos(), [-1*new_x, -1*new_y])
 
     def test_SetPosFalseNonZero(self):
         self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
