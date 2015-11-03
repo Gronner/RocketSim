@@ -57,3 +57,11 @@ class Rocket(object):
         :param velocity_y: Velocity in Y direction of the rocket (Double)
         """
         self.velocity = [velocity_x, velocity_y]
+
+    def set_acceleration(self, acceleration_x, acceleration_y):
+        """
+        Allows to set the acceleration of the rocket in x and y direction
+        :param acceleration_x: Acceleration in X direction of the rocket (Double)
+        :param acceleration_y: Acceleration in Y direction of the rocket (Double)
+        """
+        self.acceleration = [acceleration_x, acceleration_y]
