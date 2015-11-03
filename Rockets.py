@@ -105,3 +105,9 @@ class Rocket(object):
             raise ValueError
         else:
             return self.surface
+
+    def set_surface(self):
+        surface_sum = 0.0
+        for part in self.rocket_parts:
+            surface_sum += part.get_surface()
+        self.surface = surface_sum
