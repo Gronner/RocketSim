@@ -1,6 +1,6 @@
 """
 Author:         Felix Braeunling
-Description:    This class describes the assambled rocket with its position and pyhsical attributes
+Description:    This class describes the assembled rocket with its position and physical attributes
 """
 
 from RocketParts import RocketPart
