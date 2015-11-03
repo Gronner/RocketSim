@@ -49,3 +49,11 @@ class Rocket(object):
         :param pos_y: Y-position of the rocket (Double)
         """
         self.pos = [pos_x, pos_y]
+
+    def set_velocity(self, velocity_x, velocity_y):
+        """
+        Allows to set the velocity of the rocket in x and y direction
+        :param velocity_x: Velocity in X direction of the rocket (Double)
+        :param velocity_y: Velocity in Y direction of the rocket (Double)
+        """
+        self.velocity = [velocity_x, velocity_y]
