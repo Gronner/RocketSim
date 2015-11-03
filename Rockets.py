@@ -23,3 +23,9 @@ class Rocket(object):
         self.mass = 0.0
         self.surface = 0.0
         self.angle = 0.0
+
+    def get_pos(self):
+        """
+        :return: The position of the rocket as x and y coordinates (Tuple -> (Double, Double))
+        """
+        return self.pos
