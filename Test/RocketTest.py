@@ -392,6 +392,49 @@ class SetAngleTest(unittest.TestCase):
         self.assertNotEqual(self.rocket.get_angle(), 123.4)
 
 
+class DecoupleTest(unittest.TestCase):
+
+    def test_decoupleLastTank(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1234.5, 2000.0, 0.34)
+        self.tank_one = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.rocket.append_part(self.part_one)
+        self.rocket.append_part(self.tank_one)
+        self.assertEqual(self.rocket.rocket_parts[0], self.part_one)
+        self.assertEqual(self.rocket.rocket_parts[1], self.tank_one)
+        self.rocket.decouple()
+        self.assertEqual(len(self.rocket.rocket_parts), 0)
+
+    def test_decoupleNTimes(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1234.5, 2000.0, 0.34)
+        self.tank_two = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.tank_three = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.tank_four = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.tank_five = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.rocket.append_part(self.part_one)
+        self.rocket.append_part(self.tank_one)
+        self.rocket.append_part(self.tank_two)
+        self.rocket.append_part(self.tank_three)
+        self.rocket.append_part(self.tank_four)
+        self.rocket.append_part(self.tank_five)
+        self.assertEqual(len(self.rocket.rocket_parts), 6)
+        self.assertEqual(self.rocket.rocket_parts[-1], self.tank_five)
+        self.rocket.decouple()
+        self.assertEqual(len(self.rocket.rocket_parts), 5)
+        self.assertEqual(self.rocket.rocket_parts[-1], self.tank_four)
+        self.rocket.decouple()
+        self.assertEqual(len(self.rocket.rocket_parts), 4)
+        self.assertEqual(self.rocket.rocket_parts[-1], self.tank_three)
+
+    def test_decoupleNose(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1234.5, 2000.0, 0.34)
+        self.rocket.append_part(self.part_one)
+        self.rocket.decouple()
+        self.assertEqual(self.rocket.rocket_parts[-1], self.part_one)
+
+
 def main():
     unittest.main()
 
