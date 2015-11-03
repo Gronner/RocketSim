@@ -129,8 +129,9 @@ class SetPosTest(unittest.TestCase):
         self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
         new_x = 123.4
         new_y = 5678.9
-        self.rocket.set_pos(432.1 , 9876.5)
+        self.rocket.set_pos(432.1, 9876.5)
         self.assertNotEqual(self.rocket.get_pos(), [new_x, new_y])
+
 
 class SetVelocityTest(unittest.TestCase):
 
@@ -157,8 +158,37 @@ class SetVelocityTest(unittest.TestCase):
         self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
         new_x = 123.4
         new_y = 5678.9
-        self.rocket.set_velocity(432.1 , 9876.5)
+        self.rocket.set_velocity(432.1, 9876.5)
         self.assertNotEqual(self.rocket.get_velocity(), [new_x, new_y])
+
+
+class SetAccelerationTest(unittest.TestCase):
+
+    def test_SetAccelerationZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [13.3, 222222.2])
+        self.rocket.set_acceleration(0.0, 0.0)
+        self.assertEqual(self.rocket.get_acceleration(), [0.0, 0.0])
+
+    def test_SetAccelerationPositive(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        new_x = 123.4
+        new_y = 5678.9
+        self.rocket.set_acceleration(new_x, new_y)
+        self.assertEqual(self.rocket.get_acceleration(), [new_x, new_y])
+
+    def test_SetAccelerationNegative(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        new_x = 123.4
+        new_y = 5678.9
+        self.rocket.set_acceleration(-1*new_x, -1*new_y)
+        self.assertEqual(self.rocket.get_acceleration(), [-1*new_x, -1*new_y])
+
+    def test_SetAccelerationFalseNonZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        new_x = 123.4
+        new_y = 5678.9
+        self.rocket.set_acceleration(432.1, 9876.5)
+        self.assertNotEqual(self.rocket.get_acceleration(), [new_x, new_y])
 
 
 def main():
