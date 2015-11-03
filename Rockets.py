@@ -96,3 +96,12 @@ class Rocket(object):
         for part in self.rocket_parts:
             mass_sum += part.get_mass()
         self.mass = mass_sum
+
+    def get_surface(self):
+        """
+        :return: Surface area of the rocket (Double) [m^2]
+        """
+        if self.surface < 0:
+            raise ValueError
+        else:
+            return self.surface
