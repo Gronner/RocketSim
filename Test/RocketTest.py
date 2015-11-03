@@ -320,7 +320,7 @@ class SetSurfaceTest(unittest.TestCase):
         self.part_one = RocketPart(1000.0, 2000.0, 0.34)
         self.rocket.append_part(self.part_one)
         self.rocket.set_surface()
-        self.assertEqual(self.rocket.surface(), 2000.0)
+        self.assertEqual(self.rocket.get_surface(), 2000.0)
 
     def test_SetSurfaceNParts(self):
         self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
