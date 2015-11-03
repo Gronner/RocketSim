@@ -191,6 +191,29 @@ class SetAccelerationTest(unittest.TestCase):
         self.assertNotEqual(self.rocket.get_acceleration(), [new_x, new_y])
 
 
+class GetMassTest(unittest.TestCase):
+
+    def test_GetMassZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.assertEqual(self.rocket.get_mass(), 0.0)
+
+    def test_GetMassPositive(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.mass = 123.4
+        self.assertEqual(self.rocket.get_mass(), 123.4)
+
+    def test_GetMassNegative(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.mass = -123.4
+        with self.assertRaises(ValueError):
+            self.rocket.get_mass()
+
+    def test_GetMassFalseNonZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.rocket.mass = 56789.0
+        self.assertNotEqual(self.rocket.get_mass(), 123.4)
+
+
 def main():
     unittest.main()
 
