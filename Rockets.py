@@ -65,3 +65,12 @@ class Rocket(object):
         :param acceleration_y: Acceleration in Y direction of the rocket (Double)
         """
         self.acceleration = [acceleration_x, acceleration_y]
+
+    def get_mass(self):
+        """
+        :return: Mass of the rocket (Double) [kg]
+        """
+        if self.mass < 0:
+            raise ValueError
+        else:
+            return self.mass
