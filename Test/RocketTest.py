@@ -403,11 +403,12 @@ class DecoupleTest(unittest.TestCase):
         self.assertEqual(self.rocket.rocket_parts[0], self.part_one)
         self.assertEqual(self.rocket.rocket_parts[1], self.tank_one)
         self.rocket.decouple()
-        self.assertEqual(len(self.rocket.rocket_parts), 0)
+        self.assertEqual(len(self.rocket.rocket_parts), 1)
 
     def test_decoupleNTimes(self):
         self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
         self.part_one = RocketPart(1234.5, 2000.0, 0.34)
+        self.tank_one = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
         self.tank_two = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
         self.tank_three = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
         self.tank_four = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
