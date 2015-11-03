@@ -267,10 +267,11 @@ class SetMassTest(unittest.TestCase):
         self.part_one = RocketPart(1000.0, 2000.0, 0.34)
         self.tank_one = Tank(1000.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
         self.rocket.append_part(self.part_one)
+        self.rocket.set_mass()
         self.assertEqual(self.rocket.get_mass(), 1000.0)
         self.rocket.append_part(self.tank_one)
         self.rocket.set_mass()
-        self.assertEqual(self.rocket.get_mass(), 2000.0)
+        self.assertEqual(self.rocket.get_mass(), 3000.0)
 
     def test_SetMassNPartsFalseNonZero(self):
         self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
