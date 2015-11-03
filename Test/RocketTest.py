@@ -132,6 +132,34 @@ class SetPosTest(unittest.TestCase):
         self.rocket.set_pos(432.1 , 9876.5)
         self.assertNotEqual(self.rocket.get_pos(), [new_x, new_y])
 
+class SetVelocityTest(unittest.TestCase):
+
+    def test_SetVelocityZero(self):
+        self.rocket = Rocket([0.0, 0.0], [13.3, 222222.2], [0.0, 0.0])
+        self.rocket.set_velocity(0.0, 0.0)
+        self.assertEqual(self.rocket.get_velocity(), [0.0, 0.0])
+
+    def test_SetVelocityPositive(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        new_x = 123.4
+        new_y = 5678.9
+        self.rocket.set_velocity(new_x, new_y)
+        self.assertEqual(self.rocket.get_velocity(), [new_x, new_y])
+
+    def test_SetVelocityNegative(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        new_x = 123.4
+        new_y = 5678.9
+        self.rocket.set_velocity(-1*new_x, -1*new_y)
+        self.assertEqual(self.rocket.get_velocity(), [-1*new_x, -1*new_y])
+
+    def test_SetVelocityFalseNonZero(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        new_x = 123.4
+        new_y = 5678.9
+        self.rocket.set_velocity(432.1 , 9876.5)
+        self.assertNotEqual(self.rocket.get_velocity(), [new_x, new_y])
+
 
 def main():
     unittest.main()
