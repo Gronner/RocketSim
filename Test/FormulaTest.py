@@ -224,6 +224,21 @@ class PositionTest(unittest.TestCase):
         self.assertNotEqual(Formula.position(30.0, -44.0), -143.00)
 
 
+class VectorAdditionTest(unittest.TestCase):
+
+    def test_VectorAdditionZero(self):
+        self.assertEqual(Formula.vector_addition([0.0, 0.0]), 0.0)
+
+    def test_VectorAdditionPositive(self):
+        self.assertEqual(Formula.vector_addition([14.2, 78.8]), 80.06922005365108)
+
+    def test_VectorAdditionNegative(self):
+        self.assertEqual(Formula.vector_addition([-16.4, -62.5]), 64.61586492495476)
+
+    def test_VectorAdditionFalseNonZero(self):
+        self.assertNotEqual(Formula.vector_addition([23.2, 29.2]), 80.06922005365108)
+
+
 def main():
     unittest.main()
 
