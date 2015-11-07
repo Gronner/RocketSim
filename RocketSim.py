@@ -3,6 +3,12 @@ Author: Felix Braeunling
 
 Description: This file contains the Flight class, that describes a setup flight and also contains
 """
+import Formula
+from Atmospheres import Atmosphere
+from Datas import Data
+from Layers import Layer
+from Planets import Planet
+from RocketParts import RocketPart, Tank
 
 
 class Flight(object):
@@ -22,3 +28,8 @@ class Flight(object):
         self.rocket = rocket
         self.atmosphere = atmosphere
         self.data = data
+
+    def __lt__(self, other):
+        max_self = max(self.data.pos_rocket)
+        max_other = max(other.data.pos_rocket)
+        return Formula.vector_addition(max_self) < Formula.vector_addition(max_other)
