@@ -9,7 +9,8 @@ import csv
 
 class Data(object):
 
-    def __init__(self):
+    def __init__(self, data_file):
+        self.data_file = data_file
         self.time = []  # [s]
         self.pos_rocket = []  # [(m, m)] for x and y coordinates
         self.velocity_rocket = []  # [m/s]
@@ -62,12 +63,11 @@ class Data(object):
         self.pressure.append(pressure)
         self.density.append(density)
 
-    def write_csv(self, data_file):
+    def write_csv(self):
         """
         Writes the saved data in a csv file
-        :param data_file: CSV file the data is saved in (String)
         """
-        with open(data_file, 'wb') as csv_file:
+        with open(self.data_file, 'wb') as csv_file:
             data_writer = csv.writer(csv_file, delimiter=',')
             data_writer.writerow(self.time)
             data_writer.writerow(self.pos_rocket)
@@ -85,12 +85,11 @@ class Data(object):
             data_writer.writerow(self.pressure)
             data_writer.writerow(self.density)
 
-    def read_csv(self, data_file):
+    def read_csv(self):
         """
         Reads saved data from an csv-file
-        :param data_file: csv file the data is stored in
         """
-        with open(data_file, 'rb') as csv_file:
+        with open(self.data_file, 'rb') as csv_file:
             data_reader = csv.reader(csv_file, delimiter=',')
             new_data = []
             for row in data_reader:
