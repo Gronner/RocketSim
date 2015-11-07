@@ -186,3 +186,11 @@ def position(pos_t0, way_traveled):
     """
     return pos_t0 + way_traveled
 
+
+def vector_addition(vector):
+    """
+    Calculates the magnitude of a given vector of n = 2
+    :param vector: Vector of n = 2 (Tuple -> (Double, Double)
+    :return: Magnitude of a given vector Double [ ]
+    """
+    return math.sqrt(vector[0]**2 + vector[1]**2)
