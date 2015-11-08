@@ -75,7 +75,7 @@ class Tank(RocketPart):
     Class to describe rocket tanks with connected engine
     """
 
-    def __init__(self, mass_part, surface_part, drag_coefficient_part, mass_propellant, thrust_tank,
+    def __init__(self, mass_part, surface_part, drag_coefficient_part, mass_propellant, mass_change_tank,
                  velocity_exhaust_tank):
         """
         Setup for a tank with value validation
@@ -83,7 +83,7 @@ class Tank(RocketPart):
         :param surface_part: Surface of the tank (Double) [m^2]
         :param drag_coefficient_part: Drag coefficient of the tank (Double) [1]
         :param mass_propellant: Mass of the propellant stored in the tank (Double) [kg]
-        :param thrust_tank: Thrust Level the tank is generating, scales mass flow of the propellant (Double) [%]
+        :param mass_change_tank: Maximum mass flow of the propellant (Double) [%]
         :param velocity_exhaust_tank: Velocity of the propellant at the nozzle [m/s]
         """
         RocketPart.__init__(self, mass_part, surface_part, drag_coefficient_part)
@@ -91,10 +91,10 @@ class Tank(RocketPart):
             raise ValueError
         else:
             self.mass_propellant = mass_propellant
-        if thrust_tank < 0 or thrust_tank > 1:
+        if mass_change_tank < 0:
             raise ValueError
         else:
-            self.thrust_tank = thrust_tank
+            self.mass_change_tank = mass_change_tank
         if velocity_exhaust_tank < 0:
             raise ValueError
         else:
