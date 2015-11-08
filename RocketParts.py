@@ -76,14 +76,14 @@ class Tank(RocketPart):
     """
 
     def __init__(self, mass_part, surface_part, drag_coefficient_part, mass_propellant, mass_change_tank,
-                 velocity_exhaust_tank):
+                 velocity_exhaust_tank, surface_nozzle):
         """
         Setup for a tank with value validation
         :param mass_part: Mass of the tank (without propellant!) (Double) [kg]
         :param surface_part: Surface of the tank (Double) [m^2]
         :param drag_coefficient_part: Drag coefficient of the tank (Double) [1]
         :param mass_propellant: Mass of the propellant stored in the tank (Double) [kg]
-        :param mass_change_tank: Maximum mass flow of the propellant (Double) [%]
+        :param mass_change_tank: Maximum mass flow of the propellant (Double) [kg/s]
         :param velocity_exhaust_tank: Velocity of the propellant at the nozzle [m/s]
         """
         RocketPart.__init__(self, mass_part, surface_part, drag_coefficient_part)
@@ -99,6 +99,10 @@ class Tank(RocketPart):
             raise ValueError
         else:
             self.velocity_exhaust_tank = velocity_exhaust_tank
+        if surface_nozzle < 0:
+            raise ValueError
+        else:
+            self.surface_nozzle = surface_nozzle
         self.thrust_level_tank = 1.0
 
     def get_thrust_level(self):
@@ -142,7 +146,7 @@ class Tank(RocketPart):
     def set_mass_propellant(self, new_mass_propellant):
         """
         Allows to change the mass of the propellant
-        :param new_mass_propellant: New mass of the propellant (Double
+        :param new_mass_propellant: New mass of the propellant (Double)
         """
         if new_mass_propellant < 0:
             raise ValueError
@@ -152,10 +156,16 @@ class Tank(RocketPart):
     def get_mass_change(self):
         """
         Returns the mass change of the tank
-        :return: Mass change of the tank
+        :return: Mass change of the tank (Double) [kg/s]
         """
         new_mass_change = self.mass_change_tank * self.thrust_level_tank
         if new_mass_change < 0:
             raise ValueError
         else:
             return new_mass_change
+
+    def get_surface_nozzle(self):
+        """
+        :return: Surface of the engine nozzle (Double) [m^2]
+        """
+        return self.surface_nozzle
