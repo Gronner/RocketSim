@@ -396,6 +396,7 @@ class GetPressureNozzleTest(unittest.TestCase):
         self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 472.5, 823.3)
         self.assertNotEqual(self.tank.get_pressure_nozzle(), 123.2)
 
+
 def main():
     unittest.main()
 
