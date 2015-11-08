@@ -76,7 +76,7 @@ class Tank(RocketPart):
     """
 
     def __init__(self, mass_part, surface_part, drag_coefficient_part, mass_propellant, mass_change_tank,
-                 velocity_exhaust_tank, surface_nozzle):
+                 velocity_exhaust_tank, surface_nozzle, pressure_nozzle):
         """
         Setup for a tank with value validation
         :param mass_part: Mass of the tank (without propellant!) (Double) [kg]
@@ -85,6 +85,7 @@ class Tank(RocketPart):
         :param mass_propellant: Mass of the propellant stored in the tank (Double) [kg]
         :param mass_change_tank: Maximum mass flow of the propellant (Double) [kg/s]
         :param velocity_exhaust_tank: Velocity of the propellant at the nozzle [m/s]
+        :param pressure_nozzle: Static pressure around the nozzle [Pa]
         """
         RocketPart.__init__(self, mass_part, surface_part, drag_coefficient_part)
         if mass_propellant < 0:
@@ -103,6 +104,10 @@ class Tank(RocketPart):
             raise ValueError
         else:
             self.surface_nozzle = surface_nozzle
+        if pressure_nozzle < 0:
+            raise ValueError
+        else:
+            self.pressure_nozzle = pressure_nozzle
         self.thrust_level_tank = 1.0
 
     def get_thrust_level(self):
@@ -168,4 +173,16 @@ class Tank(RocketPart):
         """
         :return: Surface of the engine nozzle (Double) [m^2]
         """
-        return self.surface_nozzle
+        if self.surface_nozzle < 0:
+            raise ValueError
+        else:
+            return self.surface_nozzle
+
+    def get_pressure_nozzle(self):
+        """
+        :return: Static pressure at the nozzle (Double) [Pa]
+        """
+        if self.pressure_nozzle < 0:
+            raise ValueError
+        else:
+            return self.pressure_nozzle

@@ -157,7 +157,7 @@ class InitTankTest(unittest.TestCase):
         self.assertEqual(self.tank.mass_change_tank, 0.23)
         self.assertEqual(self.tank.velocity_exhaust_tank, 369.2)
         self.assertEqual(self.tank.surface_nozzle, 2.2)
-        self.assertEqual(self.tank.pressure_nozzle, 0.0)
+        self.assertEqual(self.tank.pressure_nozzle, 10023.2)
 
     def test_InitTankMassNegative(self):
         with self.assertRaises(ValueError):
@@ -393,7 +393,7 @@ class GetPressureNozzleTest(unittest.TestCase):
             self.tank.get_pressure_nozzle()
 
     def test_GetPressureNozzleFalseNonZero(self):
-        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 472.5, 123.2)
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 472.5, 823.3)
         self.assertNotEqual(self.tank.get_pressure_nozzle(), 123.2)
 
 def main():
