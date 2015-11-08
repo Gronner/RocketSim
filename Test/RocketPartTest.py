@@ -126,6 +126,13 @@ class SetMassTest(unittest.TestCase):
         self.assertNotEqual(self.rocket_part.get_mass(), 1234.0)
 
 
+class GetThrustTest(unittest.TestCase):
+
+    def test_GetThrustZero(self):
+        self.rocket_part = RocketPart(0.0, 0.0, 0.0)
+        self.assertEqual(self.rocket_part.get_thrust(), 0.0)
+
+
 # ----- Unit tests for Tank ----- #
 
 class InitTankTest(unittest.TestCase):
