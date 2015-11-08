@@ -62,6 +62,12 @@ class RocketPart(object):
             raise ValueError
         self.mass_part = new_mass_part
 
+    def get_thrust(self):
+        """
+        The thrust of a non tank or engine part is always zero
+        :return: Returns 0.0
+        """
+        return 0.0
 
 class Tank(RocketPart):
     """
