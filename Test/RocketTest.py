@@ -436,6 +436,32 @@ class DecoupleTest(unittest.TestCase):
         self.assertEqual(self.rocket.rocket_parts[-1], self.part_one)
 
 
+class GetCurrentStage(unittest.TestCase):
+
+    def test_GetCurrentStageNone(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        with self.assertRaises(ValueError):
+            self.rocket.get_current_stage()
+
+    def test_GetCurrentStageOne(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1234.5, 2000.0, 0.34)
+        self.rocket.append_part(self.part_one)
+        self.assertEqual(self.rocket.get_current_stage(), self.part_one)
+
+    def test_GetCurrentStageN(self):
+        self.rocket = Rocket([0.0, 0.0], [0.0, 0.0], [0.0, 0.0])
+        self.part_one = RocketPart(1234.5, 2000.0, 0.34)
+        self.tank_one = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.tank_two = Tank(6789.0, 2000.0, 0.34, 1000.0, 0.5, 100.0)
+        self.rocket.append_part(self.part_one)
+        self.rocket.append_part(self.tank_one)
+        self.rocket.append_part(self.tank_two)
+        self.assertEqual(self.rocket.get_current_stage(), self.tank_two)
+        self.rocket.decouple()
+        self.assertEqual(self.rocket.get_current_stage(), self.tank_one)
+
+
 def main():
     unittest.main()
 
