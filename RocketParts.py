@@ -148,3 +148,14 @@ class Tank(RocketPart):
             raise ValueError
         else:
             self.mass_propellant = new_mass_propellant
+
+    def get_mass_change(self):
+        """
+        Returns the mass change of the tank
+        :return: Mass change of the tank
+        """
+        new_mass_change = self.mass_change_tank * self.thrust_level_tank
+        if new_mass_change < 0:
+            raise ValueError
+        else:
+            return new_mass_change
