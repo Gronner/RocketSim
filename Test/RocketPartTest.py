@@ -319,6 +319,28 @@ class SetMassPropellantTest(unittest.TestCase):
         self.assertNotEqual(self.tank.mass_propellant, 999.0)
 
 
+class GetMassChangeTest(unittest.TestCase):
+
+    def test_GetMassChangeZero(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        self.assertEqual(self.tank.get_mass_change(), 0.0)
+
+    def test_GetMassChangePositive(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 230.0, 0.0)
+        self.assertEqual(self.tank.get_mass_change(), 230.0)
+
+    def test_GetMassChangePositiveReducedThrustLevel(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 230.0, 0.0)
+        self.tank.set_thrust_level(0.5)
+        self.assertEqual(self.tank.get_mass_change(), 230.0*0.5)
+
+    def test_GetMassChangeNegative(self):
+        self.tank = Tank(0.0, 0.0, 0.0, 0.0, 230.0, 0.0)
+        self.tank.thrust_level_tank = -0.5
+        with self.assertRaises(ValueError):
+            self.tank.get_mass_change()
+
+
 def main():
     unittest.main()
 
