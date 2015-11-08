@@ -9,6 +9,7 @@ from Datas import Data
 from Layers import Layer
 from Planets import Planet
 from RocketParts import RocketPart, Tank
+from Rockets import Rocket
 
 
 class Flight(object):
@@ -28,6 +29,7 @@ class Flight(object):
         self.rocket = rocket
         self.atmosphere = atmosphere
         self.data = data
+        self.distance = Formula.vector_addition(self.rocket.get_pos())
 
     def __lt__(self, other):
         max_self = max(self.data.pos_rocket)
@@ -98,6 +100,8 @@ class Flight(object):
                 self.rocket.decouple()
             else:
                 current_stage.set_mass_propellant(mass_propellant_now)
+            self.rocket.set_mass()
+            self.data.mass_rocket.append(self.rocket.get_mass())
         # Get current velocity
         velocity_x_now = Formula.velocity(self.rocket.get_velocity()[0], self.time_delta, acceleration_x_now)
         velocity_y_now = Formula.velocity(self.rocket.get_velocity()[1], self.time_delta, acceleration_y_now)
@@ -109,5 +113,48 @@ class Flight(object):
         pos_x_now = Formula.position(self.rocket.get_pos()[0], way_traveled_x_now)
         way_traveled_y_now = Formula.way(self.time_delta, velocity_y_now, acceleration_y_now)
         pos_y_now = Formula.position(self.rocket.get_pos()[1], way_traveled_y_now)
-        self.data.pos_rocket.append([pos_x_now, pos_y_now])
+        self.data.pos_rocket.append([pos_x_now, pos_y_now]) # Save position of the rocket
         self.rocket.set_pos(pos_x_now, pos_y_now)
+        # Get distance to planet core
+        self.distance = Formula.vector_addition([pos_x_now, pos_y_now])
+
+    def get_distance(self):
+        """
+        :return: Distance of the rocket to the planets core [m]
+        """
+        return self.distance
+
+
+def main():
+    """
+    Declare you planet, atmosphere with its layers, the rocket with its parts, the data object and the time delta here
+    and run the simulation
+    :return:
+    """
+    # Setup here
+    sim_planet = Planet(pos_planet=[0.0, 0.0], mass_planet=, radius_planet=)
+    sim_radius_planet = sim_planet.get_radius()
+    sim_layer_one = Layer(pressure_low=, width_layer=, temp_gradient=, temp_low=)
+    sim_atmosphere = Atmosphere()
+    sim_atmosphere.add_layer(sim_layer_one)
+    sim_data = Data(data_file="./Results/Test_one.csv")
+    sim_rocket_part_one = RocketPart(mass_part=, surface_part=, drag_coefficient_part=)
+    sim_tank_one = Tank(mass_part=, surface_part=, drag_coefficient_part=, mass_propellant=, mass_change_tank=,
+                        velocity_exhaust_tank=, surface_nozzle=, pressure_nozzle=)
+    sim_rocket = Rocket(pos=[0.0, sim_radius_planet], velocity=[0.0, 0.0], acceleration=[0.0, 0.0])
+    sim_rocket.append_part(sim_rocket_part_one)
+    sim_rocket.append_part(sim_tank_one)
+    sim_time_step = 0.1  # [s] Timestep the simulation uses
+    sim_flight = Flight(sim_time_step, sim_planet, sim_rocket, sim_atmosphere, sim_data)
+    sim_max_step = 1000000000000000  # Maximum time steps the simulation should run
+    #Running the simulation
+    current_step = 0
+    print "Simulation starting"
+    while not (sim_flight.get_distance() < sim_radius_planet) or not (current_step > sim_max_step):
+        Flight.simulate()
+        current_step += 1
+    print "Simulation ended!"
+    Flight.data.write_csv()
+
+if __name__ == "__main__":
+    main()
