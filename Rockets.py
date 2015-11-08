@@ -137,3 +137,10 @@ class Rocket(object):
             pass
         else:
             self.rocket_parts.pop()
+
+    def get_current_stage(self):
+        """
+        Returns the current active stage
+        :return: Current active stage (Rocket Part or Tank)
+        """
+        return self.rocket_parts[-1]
