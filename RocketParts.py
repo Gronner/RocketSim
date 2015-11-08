@@ -69,6 +69,7 @@ class RocketPart(object):
         """
         return 0.0
 
+
 class Tank(RocketPart):
     """
     Class to describe rocket tanks with connected engine
@@ -98,24 +99,25 @@ class Tank(RocketPart):
             raise ValueError
         else:
             self.velocity_exhaust_tank = velocity_exhaust_tank
+        self.thrust_level_tank = 1.0
 
-    def get_thrust(self):
+    def get_thrust_level(self):
         """
         :return: Thrust level of the engine, scales the mass of propellant flow (Double) [%]
         """
-        if self.thrust_tank < 0 or self.thrust_tank > 1:
+        if self.thrust_level_tank < 0 or self.thrust_level_tank > 1:
             raise ValueError
-        return self.thrust_tank
+        return self.thrust_level_tank
 
-    def set_thrust(self, new_thrust_tank):
+    def set_thrust_level(self, new_thrust_level_tank):
         """
         Allows to change the thrust level of the engine
-        :param new_thrust_tank: New thrust level of the engine
+        :param new_thrust_level_tank: New thrust level of the engine
         """
-        if new_thrust_tank < 0 or new_thrust_tank > 1:
+        if new_thrust_level_tank < 0 or new_thrust_level_tank > 1:
             raise ValueError
         else:
-            self.thrust_tank = new_thrust_tank
+            self.thrust_level_tank = new_thrust_level_tank
 
     def get_velocity_exhaust(self):
         """
