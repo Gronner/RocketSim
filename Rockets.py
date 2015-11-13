@@ -3,6 +3,7 @@ Author:         Felix Braeunling
 Description:    This class describes the assembled rocket with its position and physical attributes
 """
 
+import math
 from RocketParts import RocketPart
 from RocketParts import Tank
 
@@ -22,7 +23,7 @@ class Rocket(object):
         self.acceleration = acceleration
         self.mass = 0.0
         self.surface = 0.0
-        self.angle = 0.0
+        self.angle = 0
 
     def get_pos(self):
         """
