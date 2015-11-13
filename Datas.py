@@ -14,19 +14,19 @@ class Data(object):
         self.time = [0]  # [s]
         self.pos_x_rocket = []  # [m]
         self.pos_y_rocket = []  # [m]
-        self.velocity_rocket = [0.0]  # [m/s]
-        self.acceleration_rocket = [0.0]  # [m/s^2]
-        self.mass_rocket = [0.0]  # [kg]
-        self.heigth_rocket = [0.0]  # [m]
-        self.angle_rocket = [0.0]  # [grad]
-        self.thrust = [0.0]  # [N]
-        self.drag = [0.0]  # [N]
-        self.gravity = [0.0]  # [N]
-        self.force_res = [0.0]  # [N]
-        self.force_res_split = [0.0]  # [(N, N)] for x and y direction
-        self.temperature = [0.0]  # [K]
-        self.pressure = [0.0]  # [Pa]
-        self.density = [0.0]  # [kg/m^3]
+        self.velocity_rocket = []  # [m/s]
+        self.acceleration_rocket = []  # [m/s^2]
+        self.mass_rocket = []  # [kg]
+        self.heigth_rocket = []  # [m]
+        self.angle_rocket = []  # [grad]
+        self.thrust = []  # [N]
+        self.drag = []  # [N]
+        self.gravity = []  # [N]
+        self.force_res = []  # [N]
+        self.force_res_split = []  # [(N, N)] for x and y direction
+        self.temperature = []  # [K]
+        self.pressure = []  # [Pa]
+        self.density = []  # [kg/m^3]
 
     def add_data(self, time, pos_x_rocket, pos_y_rocket, velocity_rocket, acceleration_rocket, mass_rocket, height_rocket,
                  angle_rocket, thrust, drag, gravity, force_res, force_res_split, temperature, pressure, density):
