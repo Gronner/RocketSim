@@ -107,7 +107,7 @@ def resulting_force(force_thrust, force_drag, force_gravity):
     :param force_gravity: Force applied by gravity (Double)
     :return: Sum of the three forces (Double) [N]
     """
-    return force_thrust + force_drag + force_gravity
+    return force_thrust - force_drag - force_gravity
 
 
 def angle(velocity_rocket, pos_change, radius_planet, height_rocket):
@@ -162,8 +162,8 @@ def res_x(factor_result, angle_rocket):
     :param angle_rocket: angle the rocket is facing to the horizon (Double) [grad]
     :return: resulting factor in x-direction (Double) [N]
     """
-    angle_rad_r = math.radians(angle_rocket)
-    return factor_result * math.cos(angle_rad_r)
+    angle_rocket_rad = math.radians(angle_rocket)
+    return factor_result * math.cos(angle_rocket_rad)
 
 
 def res_y(factor_result, angle_rocket):
@@ -173,8 +173,8 @@ def res_y(factor_result, angle_rocket):
     :param angle_rocket: angle the rocket is facing to the horizon (Double) [grad]
     :return: resulting factor in y-direction (Double) [N]
     """
-    angle_rad_r = math.radians(angle_rocket)
-    return factor_result * math.sin(angle_rad_r)
+    angle_rocket_rad = math.radians(angle_rocket)
+    return factor_result * math.sin(angle_rocket_rad)
 
 
 def position(pos_t0, way_traveled):
