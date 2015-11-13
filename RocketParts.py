@@ -186,3 +186,9 @@ class Tank(RocketPart):
             raise ValueError
         else:
             return self.pressure_nozzle
+
+    def get_mass_propellant(self):
+        """
+        :return: Mass of the propellant contained in the tank (Double) [kg]
+        """
+        return self.mass_propellant
