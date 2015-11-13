@@ -17,10 +17,10 @@ class Data(object):
         self.velocity_rocket = []  # [m/s]
         self.acceleration_rocket = []  # [m/s^2]
         self.mass_rocket = []  # [kg]
-        self.heigth_rocket = []  # [m]
+        self.heigth_rocket = [0]  # [m]
         self.angle_rocket = []  # [grad]
-        self.thrust = []  # [N]
-        self.drag = []  # [N]
+        self.thrust = [0]  # [N]
+        self.drag = [0]  # [N]
         self.gravity = []  # [N]
         self.force_res = []  # [N]
         self.force_res_split = []  # [(N, N)] for x and y direction
