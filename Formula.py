@@ -90,8 +90,8 @@ def temperature(temp_height_low, temp_gradient, heigth_low, height_rocket):
 def density(pressure_medium, temp_height):
     """
     Calculates the atmospheres density at a certain height
-    :param p_h: The pressure of the medium depending on the height (Double)
-    :param t_h: The Temperature of the medium depending on the height (Double)
+    :param pressure_medium: The pressure of the medium depending on the height (Double)
+    :param temp_height: The Temperature of the medium depending on the height (Double)
     :return: Density of the medium depending on the height of the rocket (Double) [kg/m^3]
     """
     global R
