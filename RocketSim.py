@@ -79,14 +79,21 @@ class Flight(object):
         drag_coefficient = self.rocket.rocket_parts[0].drag_coefficient_part
         drag_now = Formula.drag(density_now, velocity_before, self.rocket.get_surface(), drag_coefficient)
         self.data.drag.append(drag_now)  # Save current drag
-        # Get current resulting force and resulting force in x and y direction
-        force_res_now = Formula.resulting_force(thrust_now, drag_now, gravity_now)
-        self.data.force_res.append(force_res_now)  # Save current resulting force
+        # Get forces split in x and y direction
         angle_rocket_now = self.rocket.get_angle()
         self.data.angle_rocket.append(angle_rocket_now)  # Save current angle of the rocket
-        force_res_x_now = Formula.res_x(force_res_now, angle_rocket_now)
-        force_res_y_now = Formula.res_y(force_res_now, angle_rocket_now)
-        self.data.force_res_split.append([force_res_x_now, force_res_y_now]) # Save split resulting force
+        thrust_now_x = Formula.res_x(thrust_now, angle_rocket_now)
+        thrust_now_y = Formula.res_y(thrust_now, angle_rocket_now)
+        gravity_now_x = Formula.res_x(gravity_now, angle_rocket_now)
+        gravity_now_y = Formula.res_y(gravity_now, angle_rocket_now)
+        drag_now_x = Formula.res_x(drag_now, angle_rocket_now)
+        drag_now_y = Formula.res_y(drag_now, angle_rocket_now)
+        # Get current resulting force and resulting forces in x and y direction
+        force_res_now_x = Formula.resulting_force(thrust_now_x, gravity_now_x, drag_now_x)
+        force_res_now_y = Formula.resulting_force(thrust_now_y, gravity_now_y,drag_now_y)
+        force_res_now = Formula.vector_addition([force_res_now_x, force_res_now_y])
+        self.data.force_res.append(force_res_now)  # Save current resulting force
+        self.data.force_res_split.append([force_res_now_x, force_res_now_y])  # Save split resulting force
         # Get current acceleration
         acceleration_now = Formula.acceleration(force_res_now, self.rocket.get_mass())
         self.data.acceleration_rocket.append(acceleration_now) # Save current acceleration
