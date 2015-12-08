@@ -42,9 +42,14 @@ class Flight(object):
         """
         # Save time
         time_now = self.data.time[-1] + self.time_delta
+        if time_now > 140.0:
+            pass
         self.data.time.append(time_now)
         # Get the current height the rocket is at
         height_now = Formula.vector_addition(self.rocket.get_pos())-self.planet.get_radius()
+        descending = False
+        if height_now < self.data.heigth_rocket[-1]:
+            descending = True
         distance_now = Formula.vector_addition(self.rocket.get_pos())
         self.data.heigth_rocket.append(height_now)  # Save current height
         # Get the temperature at the height of the rocket
@@ -52,7 +57,7 @@ class Flight(object):
         temp_gradient_now = self.atmosphere.get_layer(height_now).get_temp_gradient()
         index_layer = self.atmosphere.get_layers().index(self.atmosphere.get_layer(height_now))
         height_low_now = self.atmosphere.calc_height_below(index_layer)
-        temperature_now = Formula.temperature(temp_low_now, temp_gradient_now, height_now, height_low_now)
+        temperature_now = Formula.temperature(temp_low_now, temp_gradient_now, height_low_now, height_now)
         self.data.temperature.append(temperature_now)  # Save current temperature
         # Get the pressure at the height of the rocket
         pressure_low_now = self.atmosphere.get_layer(height_now).get_pressure_low()
@@ -77,8 +82,12 @@ class Flight(object):
         self.data.density.append(density_now)  # Save density
         velocity_before = Formula.vector_addition(self.rocket.get_velocity())
         drag_coefficient = self.rocket.rocket_parts[0].drag_coefficient_part
-        drag_now = Formula.drag(density_now, velocity_before, self.rocket.get_surface(), drag_coefficient)
-        self.data.drag.append(drag_now)  # Save current drag
+        if descending:
+            rocket_desc = -1
+        else:
+            rocket_desc = 1
+        drag_now = rocket_desc * Formula.drag(density_now, velocity_before, self.rocket.get_surface(), drag_coefficient)
+        self.data.drag.append(abs(drag_now))  # Save current drag
         # Get forces split in x and y direction
         angle_rocket_now = self.rocket.get_angle()
         self.data.angle_rocket.append(angle_rocket_now)  # Save current angle of the rocket
@@ -95,10 +104,10 @@ class Flight(object):
         self.data.force_res.append(force_res_now)  # Save current resulting force
         self.data.force_res_split.append([force_res_now_x, force_res_now_y])  # Save split resulting force
         # Get current acceleration
-        acceleration_now = Formula.acceleration(force_res_now, self.rocket.get_mass())
+        acceleration_x_now = Formula.acceleration(force_res_now_x, self.rocket.get_mass())
+        acceleration_y_now = Formula.acceleration(force_res_now_y, self.rocket.get_mass())
+        acceleration_now = Formula.vector_addition([force_res_now_x, force_res_now_y])
         self.data.acceleration_rocket.append(acceleration_now) # Save current acceleration
-        acceleration_x_now = Formula.res_x(acceleration_now, angle_rocket_now)
-        acceleration_y_now = Formula.res_y(acceleration_now, angle_rocket_now)
         self.rocket.set_acceleration(acceleration_x_now, acceleration_y_now)
         # Change mass of the rocket
         if change_prop_mass:
@@ -125,7 +134,7 @@ class Flight(object):
         self.rocket.set_pos(pos_x_now, pos_y_now)
         # Get distance to planet core
         self.distance = Formula.vector_addition([pos_x_now, pos_y_now])
-        print height_now/1000.0
+        print height_now
 
     def get_distance(self):
         """
@@ -136,46 +145,75 @@ class Flight(object):
 
 def main():
     """
-    Declare you planet, atmosphere with its layers, the rocket with its parts, the data object and the time delta here
+    Declare your planet, atmosphere with its layers, the rocket with its parts, the data object and the time delta here
     and run the simulation
     :return:
     """
     # Setup here
-    sim_planet = Planet(pos_planet=[0.0, 0.0], mass_planet=5.974e+24, radius_planet=12756.32*1000)
-    sim_planet_radius = sim_planet.get_radius()
-    sim_layer_one = Layer(pressure_low=100000, width_layer=18000.0, temp_gradient=-0.00065, temp_low=279.0)
-    sim_atmosphere = Atmosphere()
-    sim_atmosphere.add_layer(sim_layer_one)
-    sim_data = Data(data_file="./Results/Test_one.csv")
-    sim_rocket_part_one = RocketPart(mass_part=100000.0, surface_part=1.2, drag_coefficient_part=0.34)
-    sim_tank_one = Tank(mass_part=100.0, surface_part=0.0, drag_coefficient_part=0.0, mass_propellant=1000.0, mass_change_tank=0.34,
-                        velocity_exhaust_tank=30.0, surface_nozzle=0.8, pressure_nozzle=26000000.0)
-    sim_rocket = Rocket(pos=[sim_planet_radius, 0.0], velocity=[0.0, 0.0], acceleration=[0.0, 0.0])
-    sim_rocket.append_part(sim_rocket_part_one)
-    sim_rocket.append_part(sim_tank_one)
-    sim_rocket.set_mass()
-    sim_rocket.set_surface()
+    earth = Planet(pos_planet=[0.0, 0.0], mass_planet=5.974e+24, radius_planet=12756.32*1000)
+    earth_radius = earth.get_radius()
+    troposphere = Layer(pressure_low=101325, width_layer=18000.0, temp_gradient=-0.0065, temp_low=288.15)
+    stratosphere = Layer(pressure_low=6700, width_layer=32000.0, temp_gradient=0.0031875, temp_low=171.15)
+    mesosphere = Layer(pressure_low=2000, width_layer=30000.0, temp_gradient=-0.003333, temp_low=273.15)
+    thermosphere = Layer(pressure_low=0, width_layer=420000.0, temp_gradient=-0.000405, temp_low=173.15)
+    exosphere = Layer(pressure_low=0, width_layer=9999999999.0, temp_gradient=0.0, temp_low=3.0)
+    earth_atmosphere = Atmosphere()
+    earth_atmosphere.add_layer(troposphere)
+    earth_atmosphere.add_layer(stratosphere)
+    earth_atmosphere.add_layer(mesosphere)
+    earth_atmosphere.add_layer(thermosphere)
+    earth_atmosphere.add_layer(exosphere)
+    sim_data = Data(data_file="./Results/A150/Test_one.csv")
+    A150_payload = 0.0  # kg moegliche Nutzlast
+    A150_nose_cone = RocketPart(mass_part=7.0+2.31336+A150_payload, surface_part=0.1140, drag_coefficient_part=0.27)
+    A150_liquid_tank = Tank(mass_part=116.1216, surface_part=0.0, drag_coefficient_part=0.0, mass_propellant=484.8076, mass_change_tank=9.394,
+                        velocity_exhaust_tank=1417.32, surface_nozzle=0.0275, pressure_nozzle=101325.0)
+    A150 = Rocket(pos=[earth_radius, 0.0], velocity=[0.0, 0.0], acceleration=[0.0, 0.0])
+    A150_booster = Tank(mass_part=28.1232, surface_part=0.0, drag_coefficient_part=0.0, mass_propellant=117.6074, mass_change_tank=47.1733,
+                        velocity_exhaust_tank=1747.6074, surface_nozzle=0.0434, pressure_nozzle=101325.0)
+    A150.append_part(A150_nose_cone)
+    A150.append_part(A150_liquid_tank)
+    A150.append_part(A150_booster)
+    A150.set_mass()
+    A150.set_surface()
     sim_time_step = 0.1  # [s] Timestep the simulation uses
-    sim_flight = Flight(sim_time_step, sim_planet, sim_rocket, sim_atmosphere, sim_data)
+    sim_flight = Flight(sim_time_step, earth, A150, earth_atmosphere, sim_data)
     sim_max_step = 100000  # Maximum time steps the simulation should run
     # Running the simulation
     current_step = 0
-    sim_flight.data.pos_x_rocket.append(sim_rocket.get_pos()[0])
-    sim_flight.data.pos_y_rocket.append(sim_rocket.get_pos()[1])
-    sim_flight.data.velocity_rocket.append(sim_rocket.get_velocity()[0])
-    sim_flight.data.acceleration_rocket.append(sim_rocket.get_acceleration()[0])
-    sim_flight.data.mass_rocket.append(sim_rocket.get_mass())
-    sim_flight.data.angle_rocket.append(sim_rocket.get_angle())
-    sim_flight.data.gravity.append(Formula.gravity(sim_planet.get_mass(), sim_rocket.get_mass(), sim_planet_radius))
+    sim_flight.data.pos_x_rocket.append(A150.get_pos()[0])
+    sim_flight.data.pos_y_rocket.append(A150.get_pos()[1])
+    sim_flight.data.velocity_rocket.append(A150.get_velocity()[0])
+    sim_flight.data.acceleration_rocket.append(A150.get_acceleration()[0])
+    sim_flight.data.mass_rocket.append(A150.get_mass())
+    sim_flight.data.angle_rocket.append(A150.get_angle())
+    sim_flight.data.gravity.append(Formula.gravity(earth.get_mass(), A150.get_mass(), earth_radius))
     sim_flight.data.force_res.append(-1*sim_flight.data.gravity[0])
-    sim_flight.data.temperature.append(sim_atmosphere.get_layer(0.0).get_temp_low())
-    sim_flight.data.pressure.append(sim_atmosphere.get_layer(0.0).get_pressure_low())
-    sim_flight.data.density.append(sim_atmosphere.get_layer(0).get_density_now(0.0, 0.0))
+    sim_flight.data.temperature.append(earth_atmosphere.get_layer(0.0).get_temp_low())
+    sim_flight.data.pressure.append(earth_atmosphere.get_layer(0.0).get_pressure_low())
+    sim_flight.data.density.append(earth_atmosphere.get_layer(0).get_density_now(0.0, 0.0))
     print "Simulation starting"
-    while (not (sim_flight.get_distance() < sim_planet_radius)) and (not (current_step > sim_max_step)):
+    while sim_flight.get_distance() >= earth_radius and current_step <= sim_max_step:
         sim_flight.simulate()
         current_step += 1
-    print "Simulation ended!"
+    #Setting end point data
+    sim_flight.data.time.append(sim_flight.data.time[-1]+sim_time_step)
+    sim_flight.data.heigth_rocket.append(0.0)
+    sim_flight.data.pos_x_rocket.append(earth_radius)
+    sim_flight.data.pos_y_rocket.append(0.0)
+    sim_flight.data.velocity_rocket.append(0.0)
+    sim_flight.data.acceleration_rocket.append(0.0)
+    sim_flight.data.mass_rocket.append(A150_nose_cone.get_mass())
+    sim_flight.data.angle_rocket.append(0.0)
+    sim_flight.data.thrust.append(0.0)
+    sim_flight.data.drag.append(0.0)
+    sim_flight.data.gravity.append(sim_flight.data.gravity[0])
+    sim_flight.data.force_res.append(sim_flight.data.gravity[0])
+    sim_flight.data.force_res_split.append([sim_flight.data.gravity[0], 0.0])
+    sim_flight.data.temperature.append(sim_flight.data.temperature[0])
+    sim_flight.data.pressure.append(sim_flight.data.pressure[0])
+    sim_flight.data.density.append(sim_flight.data.density[0])
+    print "Simulation ended! Last Step: "+str(current_step)
     sim_flight.data.write_csv()
     print "Saved to CSV!"
 if __name__ == "__main__":

@@ -68,10 +68,13 @@ def pressure(pressure_height_low, temp_gradient, height_rocket, height_low, temp
     global g
     global M
     global R
-    expo = (M * g) / (R * temp_gradient)
+    if temp_gradient == 0:
+        expo = 0
+    else:
+        expo = (M * g) / (R * temp_gradient)
     height_diff = height_rocket - height_low
     quot = (temp_gradient * height_diff) / temp_height_low
-    return pressure_height_low * (1 - quot)**expo
+    return pressure_height_low * abs(1 - quot)**expo
 
 
 def temperature(temp_height_low, temp_gradient, heigth_low, height_rocket):
