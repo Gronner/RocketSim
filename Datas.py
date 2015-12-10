@@ -98,19 +98,19 @@ class Data(object):
             new_data = []
             for row in data_reader:
                 new_data.append(row)
-            self.time = new_data[0]
-            self.pos_x_rocket = new_data[1]
-            self.pos_y_rocket = new_data[2]
-            self.velocity_rocket = new_data[3]
-            self.acceleration_rocket = new_data[4]
-            self.mass_rocket = new_data[5]
-            self.heigth_rocket = new_data[6]
-            self.angle_rocket = new_data[7]
-            self.thrust = new_data[8]
-            self.drag = new_data[9]
-            self.gravity = new_data[10]
-            self.force_res = new_data[11]
+            self.time = map(float, new_data[0])
+            self.pos_x_rocket = map(float, new_data[1])
+            self.pos_y_rocket = map(float, new_data[2])
+            self.velocity_rocket = map(float, new_data[3])
+            self.acceleration_rocket = map(float, new_data[4])
+            self.mass_rocket = map(float, new_data[5])
+            self.heigth_rocket = map(float, new_data[6])
+            self.angle_rocket = map(float, new_data[7])
+            self.thrust = map(float, new_data[8])
+            self.drag = map(float, new_data[9])
+            self.gravity = map(float, new_data[10])
+            self.force_res = map(float, new_data[11])
             self.force_res_split = new_data[12]
-            self.temperature = new_data[13]
-            self.pressure = new_data[14]
-            self.density = new_data[15]
+            self.temperature = map(float, new_data[13])
+            self.pressure = map(float, new_data[14])
+            self.density = map(float, new_data[15])
