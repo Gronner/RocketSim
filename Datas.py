@@ -89,6 +89,7 @@ class Data(object):
             data_writer.writerow(self.temperature)
             data_writer.writerow(self.pressure)
             data_writer.writerow(self.density)
+            data_writer.writerow(self.name)
 
     def read_csv(self):
         """
@@ -115,3 +116,4 @@ class Data(object):
             self.temperature = map(float, new_data[13])
             self.pressure = map(float, new_data[14])
             self.density = map(float, new_data[15])
+            self.name = str(new_data[16])
