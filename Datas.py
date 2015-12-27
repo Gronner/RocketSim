@@ -11,6 +11,7 @@ class Data(object):
 
     def __init__(self, data_file):
         self.data_file = data_file
+        self.name = ""
         self.time = [0]  # [s]
         self.pos_x_rocket = []  # [m]
         self.pos_y_rocket = []  # [m]
