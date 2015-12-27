@@ -8,7 +8,7 @@ Description:    This module contains the formulas for calculating the
 
 import math
 
-G = 6.67408e-10     # Newton's gravity constant             [m^3/(kg*s^2)]
+G = 6.67408e-11     # Newton's gravity constant             [m^3/(kg*s^2)]
 M = 0.02896         # Molar mass of atmosphere gasses       [kg/mol]
 R = 8.314           # universal gas constant                [J/(K*mol)]
 g = 9.807           # Earths gravitational acceleration     [m/s^2]
@@ -49,7 +49,7 @@ def gravity(mass_planet, mass_rocket, distance):
     :return: gravitational fore (positive Double) [N]
     """
     global G
-    gravity_now = G * (mass_planet * mass_rocket) / distance**2
+    gravity_now = G * (mass_planet * mass_rocket) / (distance**2)
     if gravity_now < 0:
         raise ValueError("No negative gravity possible!")
     return gravity_now
