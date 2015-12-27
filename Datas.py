@@ -116,4 +116,7 @@ class Data(object):
             self.temperature = map(float, new_data[13])
             self.pressure = map(float, new_data[14])
             self.density = map(float, new_data[15])
-            self.name = str(new_data[16])
+            temp_name = ""
+            for char in new_data[16]:
+                temp_name += char
+            self.name = temp_name
