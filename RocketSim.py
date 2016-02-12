@@ -5,6 +5,7 @@ Description: This file contains the Flight class, that describes a setup flight 
 """
 import Formula
 import os
+import numpy as np
 from Atmospheres import Atmosphere
 from Datas import Data
 from Layers import Layer
@@ -46,14 +47,9 @@ class Flight(object):
         """
         # Save time
         time_now = self.data.time[-1] + self.time_delta
-        if time_now > 140.0:
-            pass
         self.data.time.append(time_now)
         # Get the current height the rocket is at
         height_now = Formula.vector_addition(self.rocket.get_pos())-self.planet.get_radius()
-        descending = False
-        if height_now < self.data.heigth_rocket[-1]:
-            descending = True
         distance_now = Formula.vector_addition(self.rocket.get_pos())
         self.data.heigth_rocket.append(height_now)  # Save current height
         # Get the temperature at the height of the rocket
@@ -86,11 +82,7 @@ class Flight(object):
         self.data.density.append(density_now)  # Save density
         velocity_before = Formula.vector_addition(self.rocket.get_velocity())
         drag_coefficient = self.rocket.rocket_parts[0].drag_coefficient_part
-        if descending:
-            rocket_desc = -1
-        else:
-            rocket_desc = 1
-        drag_now = rocket_desc * Formula.drag(density_now, velocity_before, self.rocket.get_surface(), drag_coefficient)
+        drag_now = np.sign(velocity_before) * Formula.drag(density_now, velocity_before, self.rocket.get_surface(), drag_coefficient)
         self.data.drag.append(abs(drag_now))  # Save current drag
         # Get forces split in x and y direction
         angle_rocket_now = self.rocket.get_angle()
@@ -318,7 +310,6 @@ def main():
 
         count += 1
 
-
     # Calculate A150 one tank, no booster:
     sim_flight_name = "A150_NoBooster"
     sim_data = Data(data_file="./Results_2/{}/Results_Data.csv".format(sim_flight_name))
@@ -337,7 +328,6 @@ def main():
     run_sim(sim_flight_nb, sim_flight_name, sim_max_step, sim_time_step)
 
     print "Optimization has ended after {} iterations, Results available".format(count-1)
-
 
 
 if __name__ == "__main__":
