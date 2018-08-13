@@ -36,7 +36,7 @@ The classes used are:
 * An Atmosphere made of any combination of these layers
 * A Data object for logging values important to the simulation evaluation
 
-For the thesis real live data was used such as:
+For the thesis real life data was used such as:
 * A sounding rocket used in early space the Aerobee 150
 * The composition of earth atmosphere
 * Earths mass is used for the calculation of gravity
